@@ -41,30 +41,36 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public ClientDTO save(final ClientDTO client) throws ClientException {
+    	
         final Client toValidate = domainMapper.toDomain(client).validateCreation();
         final ClientEntity saved = clientRepository.save(entityMapper.toEntity(toValidate));
-        log.debug("save :: toValidate: {}, saved: {}", toValidate, saved);
+        log.debug("save :: toValidate: {}", toValidate);
+        log.debug("save :: saved: {}", saved);
 		return queriesMapper.toDto(saved);
     }
 
     @Override
-    public ClientDTO update(ClientDTO clientDTO) {
-        log.debug("Request to update ClientEntity : {}", clientDTO);
-        ClientEntity client = queriesMapper.toEntity(clientDTO);
-        client = clientRepository.save(client);
-        return queriesMapper.toDto(client);
+    public ClientDTO update(final ClientDTO client) throws ClientException {
+    	
+    	final ClientEntity clientFound = clientRepository.findById(client.getId())
+    			.orElseThrow(() -> new ClientException("No existe un cliente con el ID proporcionado"));
+    	
+        final Client toUpdate = domainMapper.toDomain(client).validateUpdate(entityMapper.toDomain(clientFound));
+        final ClientEntity updated = clientRepository.save(entityMapper.toEntity(toUpdate));
+        log.debug("update :: toUpdate: {}", toUpdate);
+        log.debug("update :: updated: {}", updated);
+        return queriesMapper.toDto(updated);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<ClientDTO> findAll() {
-        log.debug("Request to get all Clients");
         return clientRepository.findAll().stream().map(queriesMapper::toDto).toList();
     }
 
     @Override
-    public void delete(Long id) {
-        log.debug("Request to delete ClientEntity : {}", id);
-        clientRepository.deleteById(id);
+    public void delete(Long clientId) {
+        log.debug("delete :: clientId: {}", clientId);
+        clientRepository.deleteById(clientId);
     }
 }

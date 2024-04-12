@@ -61,7 +61,7 @@ public class ClientEntity implements Serializable {
     private ZonedDateTime lastModificationDate;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "account")
-    private Set<AccountBankEntity> accountBank;
+    private Set<AccountBankEntity> accounts;
     
     public ClientEntity() {
 		super();
@@ -139,12 +139,12 @@ public class ClientEntity implements Serializable {
 		this.lastModificationDate = lastModificationDate;
 	}
 
-	public Set<AccountBankEntity> getAccountBank() {
-		return accountBank;
+	public Set<AccountBankEntity> getAccounts() {
+		return accounts;
 	}
 
-	public void setAccountBank(Set<AccountBankEntity> accountBank) {
-		this.accountBank = accountBank;
+	public void setAccounts(Set<AccountBankEntity> accounts) {
+		this.accounts = accounts;
 	}
 
 	@Override
@@ -177,6 +177,7 @@ public class ClientEntity implements Serializable {
             ", bornDate='" + getBornDate() + "'" +
             ", creationDate='" + getCreationDate() + "'" +
             ", lastModificationDate='" + getLastModificationDate() + "'" +
+            ", accounts='" + getAccounts() + "'" +
             "}";
     }
 }

@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.Objects;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import co.com.entities.enumeration.IdentificationType;
 
@@ -28,6 +32,9 @@ public class ClientDTO implements Serializable {
     private ZonedDateTime creationDate;
 
     private ZonedDateTime lastModificationDate;
+    
+    @JsonInclude(Include.NON_NULL)
+    private Set<AccountBankDTO> accounts;
     
     public ClientDTO() {
     	super();
@@ -105,10 +112,18 @@ public class ClientDTO implements Serializable {
         this.lastModificationDate = lastModificationDate;
     }
 
-    @Override
+	public Set<AccountBankDTO> getAccounts() {
+		return accounts;
+	}
+
+	public void setAccounts(Set<AccountBankDTO> accounts) {
+		this.accounts = accounts;
+	}
+
+	@Override
 	public int hashCode() {
-		return Objects.hash(bornDate, creationDate, email, id, identification, identificationType, lastModificationDate,
-				lastName, name);
+		return Objects.hash(accounts, bornDate, creationDate, email, id, identification, identificationType,
+				lastModificationDate, lastName, name);
 	}
 
 	@Override
@@ -120,9 +135,9 @@ public class ClientDTO implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		ClientDTO other = (ClientDTO) obj;
-		return Objects.equals(bornDate, other.bornDate) && Objects.equals(creationDate, other.creationDate)
-				&& Objects.equals(email, other.email) && Objects.equals(id, other.id)
-				&& Objects.equals(identification, other.identification)
+		return Objects.equals(accounts, other.accounts) && Objects.equals(bornDate, other.bornDate)
+				&& Objects.equals(creationDate, other.creationDate) && Objects.equals(email, other.email)
+				&& Objects.equals(id, other.id) && Objects.equals(identification, other.identification)
 				&& identificationType == other.identificationType
 				&& Objects.equals(lastModificationDate, other.lastModificationDate)
 				&& Objects.equals(lastName, other.lastName) && Objects.equals(name, other.name);
@@ -141,6 +156,7 @@ public class ClientDTO implements Serializable {
             ", bornDate='" + getBornDate() + "'" +
             ", creationDate='" + getCreationDate() + "'" +
             ", lastModificationDate='" + getLastModificationDate() + "'" +
+            ", accounts='" + getAccounts() + "'" +
             "}";
     }
 }
