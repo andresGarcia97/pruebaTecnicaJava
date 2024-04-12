@@ -1,16 +1,19 @@
-package co.com.domain;
+package co.com.domain.client;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 import co.com.entities.enumeration.IdentificationType;
 
-public class Client implements Serializable {
-
-    private static final long serialVersionUID = -2611438298976094339L;
-
+public class Client {
+	
+	private static final int MIN_YEARS = 18;
+	private static final int MIN_LENGTH_NAME_AND_LAST_NAME = 2;
+	private static final String REGEX_EMAIL = "\\b[\\w\\.-]+@[\\w\\.-]+\\.\\w{2,4}\\b";
+	
 	private Long id;
 
     private IdentificationType identificationType;
@@ -31,6 +34,52 @@ public class Client implements Serializable {
     
     public Client() {
     	super();
+	}
+    
+	public Client validateCreation() throws ClientException {
+		
+		this.validateObligatoryFields();
+		
+		final LocalDate currentTime = LocalDate.now();
+		
+		if(this.bornDate.isAfter(currentTime)) {
+			throw new ClientException("La fecha de nacimiento ingresada, es en el futuro");
+		}
+		
+		final long diffYears = ChronoUnit.YEARS.between(currentTime, this.bornDate);
+		if(diffYears < MIN_YEARS) {
+			throw new ClientException("El usuario es menor de edad, tiene: " + diffYears + " años cuando lo minimo son: " + MIN_YEARS);
+		}
+		
+		if(MIN_LENGTH_NAME_AND_LAST_NAME >= this.name.length() || MIN_LENGTH_NAME_AND_LAST_NAME >= this.lastName.length()) {
+			throw new ClientException("El nombre y el apellido, deben de tener minimo " + MIN_LENGTH_NAME_AND_LAST_NAME + " caracteres");
+		}
+		
+		if(!Pattern.matches(REGEX_EMAIL, this.email)) {
+			throw new ClientException("El correo ingresado no es valido");
+		}
+		
+		this.setCreationDate(ZonedDateTime.now());
+		return this;
+	}
+	
+	private void validateObligatoryFields() throws ClientException {
+		
+		if(this.bornDate == null) {
+			throw new ClientException("La fecha de nacimiento es obligatoria");
+		}
+		
+		if(this.name == null || this.name.isBlank()) {
+			throw new ClientException("El nombre es obligatorio");
+		}
+		
+		if(this.lastName == null || this.lastName.isBlank()) {
+			throw new ClientException("El apellido es obligatorio");
+		}
+		
+		if(this.email == null || this.email.isBlank()) {
+			throw new ClientException("El correo es obligatorio");
+		}
 	}
 
     public Long getId() {

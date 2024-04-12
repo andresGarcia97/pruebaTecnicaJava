@@ -11,7 +11,7 @@ import co.com.entities.ClientEntity;
 import co.com.entities.enumeration.IdentificationType;
 import co.com.repository.ClientRepository;
 import co.com.service.dto.ClientDTO;
-import co.com.service.mapper.client.ClientEntityMapper;
+import co.com.service.mapper.client.ClientQueriesMapper;
 import jakarta.persistence.EntityManager;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -72,7 +72,7 @@ class ClientResourceIT {
     private ClientRepository clientRepository;
 
     @Autowired
-    private ClientEntityMapper clientMapper;
+    private ClientQueriesMapper clientMapper;
 
     @Autowired
     private EntityManager em;

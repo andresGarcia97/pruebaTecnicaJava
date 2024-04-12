@@ -2,11 +2,11 @@ package co.com.service.mapper;
 
 import org.junit.jupiter.api.BeforeEach;
 
-import co.com.service.mapper.client.ClientEntityMapper;
+import co.com.service.mapper.client.ClientQueriesMapper;
 
 class ClientMapperTest {
 
-    private ClientEntityMapper clientMapper;
+    private ClientQueriesMapper clientMapper;
 
     @BeforeEach
     public void setUp() {

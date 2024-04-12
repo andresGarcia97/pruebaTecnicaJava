@@ -2,6 +2,7 @@ package co.com.service;
 
 import java.util.List;
 
+import co.com.domain.client.ClientException;
 import co.com.service.dto.ClientDTO;
 
 
@@ -11,8 +12,9 @@ public interface ClientService {
      *
      * @param clientDTO the entity to save.
      * @return the persisted entity.
+     * @throws ClientException 
      */
-    ClientDTO save(ClientDTO clientDTO);
+    ClientDTO save(ClientDTO clientDTO) throws ClientException;
 
     /**
      * Updates a client.

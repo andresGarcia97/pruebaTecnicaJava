@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import co.com.domain.client.ClientException;
 import co.com.repository.ClientRepository;
 import co.com.service.ClientService;
 import co.com.service.dto.ClientDTO;
@@ -46,12 +47,17 @@ public class ClientResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("")
-    public ResponseEntity<ClientDTO> createClient(@RequestBody ClientDTO client) {
+    public ResponseEntity<?> createClient(@RequestBody ClientDTO client) {
         log.debug("REST request to save ClientEntity : {}", client);
         if (client.getId() != null) {
             throw new IllegalArgumentException("A new client cannot already have an ID, idexists");
         }
-        return ResponseEntity.ok(clientService.save(client));
+        try {
+			return ResponseEntity.ok(clientService.save(client));
+		} catch (ClientException e) {
+			log.error("Error to create client: {} ERROR: ", client, e);
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
     }
 
     /**
