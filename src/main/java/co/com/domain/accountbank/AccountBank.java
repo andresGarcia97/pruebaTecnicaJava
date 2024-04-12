@@ -4,11 +4,16 @@ import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import co.com.domain.client.Client;
 import co.com.entities.enumeration.AccountState;
 import co.com.entities.enumeration.AccountType;
 
 public class AccountBank {
+	
+	private static final Logger log = LoggerFactory.getLogger(AccountBank.class);
 
 	private Long id;
 
@@ -33,6 +38,20 @@ public class AccountBank {
 	}
     
 	public AccountBank validateCreation() throws AccountBankException {
+		
+		final AccountType type = this.accountType;
+		if(type == null) {
+			throw new AccountBankException("El tipo de cuenta es obligatorio");
+		}
+		
+		if(AccountType.CUENTA_AHORROS.equals(type)) {
+			this.setState(AccountState.ACTIVA);
+		}
+		else if(this.state == null) {
+			throw new AccountBankException("EL estado de la cuenta es obligatorio, al ser una cuenta de tipo: " + type.toString());
+		}
+		
+		log.debug("validateCreation:: {} {}", this, this.getClient());
 		
 		return this;
 	}
@@ -105,7 +124,7 @@ public class AccountBank {
         return client;
     }
 
-    public void setAccount(Client client) {
+    public void setClient(Client client) {
         this.client = client;
     }
 

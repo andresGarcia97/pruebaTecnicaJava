@@ -165,6 +165,7 @@ public class AccountBankEntity implements Serializable {
     // prettier-ignore
     @Override
     public String toString() {
+    	final Long clientId = getClient() == null ? null : getClient().getId();
         return "AccountBankEntity{" +
             "id=" + getId() +
             ", accountType='" + getAccountType() + "'" +
@@ -174,6 +175,7 @@ public class AccountBankEntity implements Serializable {
             ", exentGMF='" + getExentGMF() + "'" +
             ", creationDate='" + getCreationDate() + "'" +
             ", lastModificationDate='" + getLastModificationDate() + "'" +
+            ", clientId='" + clientId  + "'" +
             "}";
     }
 }
