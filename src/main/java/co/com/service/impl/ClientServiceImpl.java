@@ -1,6 +1,7 @@
 package co.com.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -73,4 +74,10 @@ public class ClientServiceImpl implements ClientService {
         log.debug("delete :: clientId: {}", clientId);
         clientRepository.deleteById(clientId);
     }
+
+	@Override
+	@Transactional(readOnly = true)
+	public Optional<ClientDTO> findById(Long clientId) {
+		return clientRepository.findById(clientId).map(queriesMapper::toDto);
+	}
 }

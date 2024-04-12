@@ -60,7 +60,7 @@ public class ClientEntity implements Serializable {
     @Column(name = "last_modification_date")
     private ZonedDateTime lastModificationDate;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "account")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "client")
     private Set<AccountBankEntity> accounts;
     
     public ClientEntity() {

@@ -32,7 +32,7 @@ public class ClientResource {
     }
     
     @PostMapping("")
-    public ResponseEntity<?> create(@RequestBody final ClientDTO client) {
+    public ResponseEntity<?> create(@RequestBody(required = true) final ClientDTO client) {
         log.debug("REST request to save client: {}", client);
         if (client.getId() != null) {
             throw new IllegalArgumentException("A new client cannot already have an ID");
@@ -46,7 +46,7 @@ public class ClientResource {
     }
     
     @PutMapping("")
-    public ResponseEntity<?> update(@RequestBody final ClientDTO client) {
+    public ResponseEntity<?> update(@RequestBody(required = true) final ClientDTO client) {
         log.debug("REST request to update client: {}", client);
         if (client == null || client.getId() == null) {
             throw new IllegalArgumentException("Invalid ID");
