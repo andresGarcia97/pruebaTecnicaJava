@@ -3,6 +3,7 @@ package co.com;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Optional;
+import java.util.TimeZone;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.core.env.Environment;
 
 import co.com.config.CRLFLogConverter;
+import jakarta.annotation.PostConstruct;
 
 @SpringBootApplication
 @EnableConfigurationProperties({ LiquibaseProperties.class })
@@ -61,5 +63,10 @@ public class PruebaTecnicaBancoApp {
             contextPath,
             env.getActiveProfiles().length == 0 ? env.getDefaultProfiles() : env.getActiveProfiles()
         );
+    }
+    
+    @PostConstruct
+    public void setTimeDefault() {
+    	TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
     }
 }
