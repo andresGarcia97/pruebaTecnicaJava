@@ -26,10 +26,15 @@ public class AccountBank {
 
     private ZonedDateTime lastModificationDate;
 
-    private Client account;
+    private Client client;
     
     public AccountBank() {
 		super();
+	}
+    
+	public AccountBank validateCreation() throws AccountBankException {
+		
+		return this;
 	}
 
     public Long getId() {
@@ -96,17 +101,17 @@ public class AccountBank {
         this.lastModificationDate = lastModificationDate;
     }
 
-    public Client getAccount() {
-        return account;
+    public Client getClient() {
+        return client;
     }
 
-    public void setAccount(Client account) {
-        this.account = account;
+    public void setAccount(Client client) {
+        this.client = client;
     }
 
     @Override
 	public int hashCode() {
-		return Objects.hash(account, accountType, balance, creationDate, exentGMF, id, lastModificationDate, number,
+		return Objects.hash(client, accountType, balance, creationDate, exentGMF, id, lastModificationDate, number,
 				state);
 	}
 
@@ -119,7 +124,7 @@ public class AccountBank {
 		if (getClass() != obj.getClass())
 			return false;
 		AccountBank other = (AccountBank) obj;
-		return Objects.equals(account, other.account) && accountType == other.accountType
+		return Objects.equals(client, other.client) && accountType == other.accountType
 				&& Objects.equals(balance, other.balance) && Objects.equals(creationDate, other.creationDate)
 				&& Objects.equals(exentGMF, other.exentGMF) && Objects.equals(id, other.id)
 				&& Objects.equals(lastModificationDate, other.lastModificationDate)
@@ -138,7 +143,7 @@ public class AccountBank {
             ", exentGMF='" + getExentGMF() + "'" +
             ", creationDate='" + getCreationDate() + "'" +
             ", lastModificationDate='" + getLastModificationDate() + "'" +
-            ", account=" + getAccount() +
+            ", client=" + getClient() +
             "}";
     }
 }

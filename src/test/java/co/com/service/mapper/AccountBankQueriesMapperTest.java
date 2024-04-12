@@ -2,9 +2,11 @@ package co.com.service.mapper;
 
 import org.junit.jupiter.api.BeforeEach;
 
-class AccountBankMapperTest {
+import co.com.service.mapper.accountbank.AccountBankQueriesMapper;
 
-    private AccountBankMapper accountBankMapper;
+class AccountBankQueriesMapperTest {
+
+    private AccountBankQueriesMapper accountBankMapper;
 
     @BeforeEach
     public void setUp() {

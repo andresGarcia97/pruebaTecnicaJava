@@ -7,37 +7,32 @@ import java.util.Objects;
 
 import co.com.entities.enumeration.AccountState;
 import co.com.entities.enumeration.AccountType;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotNull;
 
 public class AccountBankDTO implements Serializable {
 
     private static final long serialVersionUID = 6441152201568629889L;
 
 	private Long id;
-
-    @NotNull
+	
     private AccountType accountType;
-
-    @NotNull
+    
     private Long number;
-
-    @NotNull
+    
     private AccountState state;
-
-    @NotNull
-    @DecimalMin(value = "0")
+    
     private BigDecimal balance;
-
-    @NotNull
+    
     private Boolean exentGMF;
-
-    @NotNull
+    
     private ZonedDateTime creationDate;
 
     private ZonedDateTime lastModificationDate;
-
-    private ClientDTO account;
+    
+    private ClientDTO client;
+    
+    public AccountBankDTO() {
+		super();
+	}
 
     public Long getId() {
         return id;
@@ -103,36 +98,37 @@ public class AccountBankDTO implements Serializable {
         this.lastModificationDate = lastModificationDate;
     }
 
-    public ClientDTO getAccount() {
-        return account;
+    public ClientDTO getClient() {
+        return client;
     }
 
-    public void setAccount(ClientDTO account) {
-        this.account = account;
+    public void setClient(ClientDTO client) {
+        this.client = client;
     }
-
+    
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof AccountBankDTO)) {
-            return false;
-        }
+	public int hashCode() {
+		return Objects.hash(accountType, balance, client, creationDate, exentGMF, id, lastModificationDate, number,
+				state);
+	}
 
-        AccountBankDTO accountBankDTO = (AccountBankDTO) o;
-        if (this.id == null) {
-            return false;
-        }
-        return Objects.equals(this.id, accountBankDTO.id);
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AccountBankDTO other = (AccountBankDTO) obj;
+		return accountType == other.accountType && Objects.equals(balance, other.balance)
+				&& Objects.equals(client, other.client) && Objects.equals(creationDate, other.creationDate)
+				&& Objects.equals(exentGMF, other.exentGMF) && Objects.equals(id, other.id)
+				&& Objects.equals(lastModificationDate, other.lastModificationDate)
+				&& Objects.equals(number, other.number) && state == other.state;
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(this.id);
-    }
-
-    // prettier-ignore
+	// prettier-ignore
     @Override
     public String toString() {
         return "AccountBankDTO{" +
@@ -144,7 +140,7 @@ public class AccountBankDTO implements Serializable {
             ", exentGMF='" + getExentGMF() + "'" +
             ", creationDate='" + getCreationDate() + "'" +
             ", lastModificationDate='" + getLastModificationDate() + "'" +
-            ", account=" + getAccount() +
+            ", client=" + getClient() +
             "}";
     }
 }

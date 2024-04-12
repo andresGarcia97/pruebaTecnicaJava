@@ -14,7 +14,7 @@ import co.com.entities.enumeration.AccountState;
 import co.com.entities.enumeration.AccountType;
 import co.com.repository.AccountBankRepository;
 import co.com.service.dto.AccountBankDTO;
-import co.com.service.mapper.AccountBankMapper;
+import co.com.service.mapper.accountbank.AccountBankQueriesMapper;
 import jakarta.persistence.EntityManager;
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -72,7 +72,7 @@ class AccountBankResourceIT {
     private AccountBankRepository accountBankRepository;
 
     @Autowired
-    private AccountBankMapper accountBankMapper;
+    private AccountBankQueriesMapper accountBankMapper;
 
     @Autowired
     private EntityManager em;

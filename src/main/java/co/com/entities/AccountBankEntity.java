@@ -65,8 +65,9 @@ public class AccountBankEntity implements Serializable {
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    // TODO cambiar este atributo en el changelog tambien
     @JoinColumn(name = "account_id", referencedColumnName = "id")
-    private ClientEntity account;
+    private ClientEntity client;
     
     public AccountBankEntity() {
 		super();
@@ -136,12 +137,12 @@ public class AccountBankEntity implements Serializable {
 		this.lastModificationDate = lastModificationDate;
 	}
 
-	public ClientEntity getAccount() {
-		return account;
+	public ClientEntity getClient() {
+		return client;
 	}
 
-	public void setAccount(ClientEntity account) {
-		this.account = account;
+	public void setClient(ClientEntity client) {
+		this.client = client;
 	}
 
 	@Override
