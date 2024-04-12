@@ -1,0 +1,5 @@
+export enum AccountType {
+  CUENTA_CORRIENTE = 'CUENTA_CORRIENTE',
+
+  CUENTA_AHORROS = 'CUENTA_AHORROS',
+}

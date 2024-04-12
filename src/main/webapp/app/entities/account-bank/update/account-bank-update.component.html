@@ -1,0 +1,157 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-account-bank-heading" data-cy="AccountBankCreateUpdateHeading">Create or edit a Account Bank</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" for="field_id">Id</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_accountType">Account Type</label>
+          <select class="form-control" name="accountType" formControlName="accountType" id="field_accountType" data-cy="accountType">
+            <option [ngValue]="null"></option>
+            <option *ngFor="let accountType of accountTypeValues" [value]="accountType">{{ accountType }}</option>
+          </select>
+          <div *ngIf="editForm.get('accountType')!.invalid && (editForm.get('accountType')!.dirty || editForm.get('accountType')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('accountType')?.errors?.required"
+              >Translation missing for entity.validation.required</small
+            >
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_number">Number</label>
+          <input type="number" class="form-control" name="number" id="field_number" data-cy="number" formControlName="number" />
+          <div *ngIf="editForm.get('number')!.invalid && (editForm.get('number')!.dirty || editForm.get('number')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('number')?.errors?.required"
+              >Translation missing for entity.validation.required</small
+            >
+            <small class="form-text text-danger" [hidden]="!editForm.get('number')?.errors?.number"
+              >Translation missing for entity.validation.number</small
+            >
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_state">State</label>
+          <select class="form-control" name="state" formControlName="state" id="field_state" data-cy="state">
+            <option [ngValue]="null"></option>
+            <option *ngFor="let accountState of accountStateValues" [value]="accountState">{{ accountState }}</option>
+          </select>
+          <div *ngIf="editForm.get('state')!.invalid && (editForm.get('state')!.dirty || editForm.get('state')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('state')?.errors?.required"
+              >Translation missing for entity.validation.required</small
+            >
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_balance">Balance</label>
+          <input type="number" class="form-control" name="balance" id="field_balance" data-cy="balance" formControlName="balance" />
+          <div *ngIf="editForm.get('balance')!.invalid && (editForm.get('balance')!.dirty || editForm.get('balance')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('balance')?.errors?.required"
+              >Translation missing for entity.validation.required</small
+            >
+            <small class="form-text text-danger" *ngIf="editForm.get('balance')?.errors?.min"
+              >Translation missing for entity.validation.min</small
+            >
+            <small class="form-text text-danger" [hidden]="!editForm.get('balance')?.errors?.number"
+              >Translation missing for entity.validation.number</small
+            >
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_exentGMF">Exent GMF</label>
+          <input type="checkbox" class="form-check" name="exentGMF" id="field_exentGMF" data-cy="exentGMF" formControlName="exentGMF" />
+          <div *ngIf="editForm.get('exentGMF')!.invalid && (editForm.get('exentGMF')!.dirty || editForm.get('exentGMF')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('exentGMF')?.errors?.required"
+              >Translation missing for entity.validation.required</small
+            >
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_creationDate">Creation Date</label>
+          <div class="d-flex">
+            <input
+              id="field_creationDate"
+              data-cy="creationDate"
+              type="datetime-local"
+              class="form-control"
+              name="creationDate"
+              formControlName="creationDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          <div
+            *ngIf="editForm.get('creationDate')!.invalid && (editForm.get('creationDate')!.dirty || editForm.get('creationDate')!.touched)"
+          >
+            <small class="form-text text-danger" *ngIf="editForm.get('creationDate')?.errors?.required"
+              >Translation missing for entity.validation.required</small
+            >
+            <small class="form-text text-danger" [hidden]="!editForm.get('creationDate')?.errors?.datetimelocal"
+              >Translation missing for entity.validation.datetimelocal</small
+            >
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_lastModificationDate">Last Modification Date</label>
+          <div class="d-flex">
+            <input
+              id="field_lastModificationDate"
+              data-cy="lastModificationDate"
+              type="datetime-local"
+              class="form-control"
+              name="lastModificationDate"
+              formControlName="lastModificationDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_account">Account</label>
+          <select
+            class="form-control"
+            id="field_account"
+            data-cy="account"
+            name="account"
+            formControlName="account"
+            [compareWith]="compareClient"
+          >
+            <option *ngIf="editForm.get(['account'])!.value == null" [ngValue]="null" selected></option>
+            <option [ngValue]="clientOption" *ngFor="let clientOption of accountsCollection">{{ clientOption.id }}</option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['account'])!.invalid && (editForm.get(['account'])!.dirty || editForm.get(['account'])!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get(['account'])?.errors?.required"
+            >Translation missing for entity.validation.required</small
+          >
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Translation missing for entity.action.cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Translation missing for entity.action.save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

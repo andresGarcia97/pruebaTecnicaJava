@@ -1,0 +1,7 @@
+export enum TransactionType {
+  CONSIGNACION = 'CONSIGNACION',
+
+  RETIRO = 'RETIRO',
+
+  TRANSFERENCIA = 'TRANSFERENCIA',
+}

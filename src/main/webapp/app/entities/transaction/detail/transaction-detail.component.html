@@ -1,0 +1,46 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="transaction">
+      <h2 data-cy="transactionDetailsHeading"><span>Transaction</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>Id</span></dt>
+        <dd>
+          <span>{{ transaction.id }}</span>
+        </dd>
+        <dt><span>Transaction Type</span></dt>
+        <dd>
+          <span>{{ transaction.transactionType }}</span>
+        </dd>
+        <dt><span>Transaction Date</span></dt>
+        <dd>
+          <span>{{ transaction.transactionDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Amount</span></dt>
+        <dd>
+          <span>{{ transaction.amount }}</span>
+        </dd>
+        <dt><span>Origin</span></dt>
+        <dd>
+          <div *ngIf="transaction.origin">
+            <a [routerLink]="['/account-bank', transaction.origin.id, 'view']">{{ transaction.origin.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Translation missing for entity.action.back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/transaction', transaction.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Translation missing for entity.action.edit</span>
+      </button>
+    </div>
+  </div>
+</div>

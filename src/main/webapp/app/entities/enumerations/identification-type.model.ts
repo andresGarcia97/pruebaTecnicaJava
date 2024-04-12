@@ -1,0 +1,7 @@
+export enum IdentificationType {
+  CEDULA = 'CEDULA',
+
+  PASAPORTE = 'PASAPORTE',
+
+  CEDULA_EXTRANJERIA = 'CEDULA_EXTRANJERIA',
+}

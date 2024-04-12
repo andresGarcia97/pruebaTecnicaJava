@@ -1,0 +1,62 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="accountBank">
+      <h2 data-cy="accountBankDetailsHeading"><span>Account Bank</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>Id</span></dt>
+        <dd>
+          <span>{{ accountBank.id }}</span>
+        </dd>
+        <dt><span>Account Type</span></dt>
+        <dd>
+          <span>{{ accountBank.accountType }}</span>
+        </dd>
+        <dt><span>Number</span></dt>
+        <dd>
+          <span>{{ accountBank.number }}</span>
+        </dd>
+        <dt><span>State</span></dt>
+        <dd>
+          <span>{{ accountBank.state }}</span>
+        </dd>
+        <dt><span>Balance</span></dt>
+        <dd>
+          <span>{{ accountBank.balance }}</span>
+        </dd>
+        <dt><span>Exent GMF</span></dt>
+        <dd>
+          <span>{{ accountBank.exentGMF }}</span>
+        </dd>
+        <dt><span>Creation Date</span></dt>
+        <dd>
+          <span>{{ accountBank.creationDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Last Modification Date</span></dt>
+        <dd>
+          <span>{{ accountBank.lastModificationDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Account</span></dt>
+        <dd>
+          <div *ngIf="accountBank.account">
+            <a [routerLink]="['/client', accountBank.account.id, 'view']">{{ accountBank.account.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Translation missing for entity.action.back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/account-bank', accountBank.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Translation missing for entity.action.edit</span>
+      </button>
+    </div>
+  </div>
+</div>

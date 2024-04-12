@@ -1,0 +1,115 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-transaction-heading" data-cy="TransactionCreateUpdateHeading">Create or edit a Transaction</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" for="field_id">Id</label>
+          <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_transactionType">Transaction Type</label>
+          <select
+            class="form-control"
+            name="transactionType"
+            formControlName="transactionType"
+            id="field_transactionType"
+            data-cy="transactionType"
+          >
+            <option [ngValue]="null"></option>
+            <option *ngFor="let transactionType of transactionTypeValues" [value]="transactionType">{{ transactionType }}</option>
+          </select>
+          <div
+            *ngIf="
+              editForm.get('transactionType')!.invalid &&
+              (editForm.get('transactionType')!.dirty || editForm.get('transactionType')!.touched)
+            "
+          >
+            <small class="form-text text-danger" *ngIf="editForm.get('transactionType')?.errors?.required"
+              >Translation missing for entity.validation.required</small
+            >
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_transactionDate">Transaction Date</label>
+          <div class="d-flex">
+            <input
+              id="field_transactionDate"
+              data-cy="transactionDate"
+              type="datetime-local"
+              class="form-control"
+              name="transactionDate"
+              formControlName="transactionDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          <div
+            *ngIf="
+              editForm.get('transactionDate')!.invalid &&
+              (editForm.get('transactionDate')!.dirty || editForm.get('transactionDate')!.touched)
+            "
+          >
+            <small class="form-text text-danger" *ngIf="editForm.get('transactionDate')?.errors?.required"
+              >Translation missing for entity.validation.required</small
+            >
+            <small class="form-text text-danger" [hidden]="!editForm.get('transactionDate')?.errors?.datetimelocal"
+              >Translation missing for entity.validation.datetimelocal</small
+            >
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_amount">Amount</label>
+          <input type="number" class="form-control" name="amount" id="field_amount" data-cy="amount" formControlName="amount" />
+          <div *ngIf="editForm.get('amount')!.invalid && (editForm.get('amount')!.dirty || editForm.get('amount')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('amount')?.errors?.required"
+              >Translation missing for entity.validation.required</small
+            >
+            <small class="form-text text-danger" *ngIf="editForm.get('amount')?.errors?.min"
+              >Translation missing for entity.validation.min</small
+            >
+            <small class="form-text text-danger" [hidden]="!editForm.get('amount')?.errors?.number"
+              >Translation missing for entity.validation.number</small
+            >
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_origin">Origin</label>
+          <select
+            class="form-control"
+            id="field_origin"
+            data-cy="origin"
+            name="origin"
+            formControlName="origin"
+            [compareWith]="compareAccountBank"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="accountBankOption" *ngFor="let accountBankOption of originsCollection">{{ accountBankOption.id }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Translation missing for entity.action.cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Translation missing for entity.action.save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
