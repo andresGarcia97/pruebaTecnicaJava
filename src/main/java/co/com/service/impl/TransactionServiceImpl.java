@@ -65,20 +65,28 @@ public class TransactionServiceImpl implements TransactionService {
     	final Transaction toValidate = domainMapper.toDomain(transaction).validateCreation();
         log.debug("saveAndFlush :: toValidate: {}", toValidate);
         
-		final AccountBank accountDestiny = toValidate.getDestiny();
-		final AccountBank accountOrigin = toValidate.getOrigin();
+		final AccountBank destiny = toValidate.getDestiny();
+		final AccountBank origin = toValidate.getOrigin();
 		
-		if(accountDestiny != null && TransactionType.CONSIGNACION.equals(toValidate.getTransactionType())) {
-			accountBankService.updateBalance(accountDestiny);
+		if(destiny != null && TransactionType.CONSIGNACION.equals(toValidate.getTransactionType())) {
+			accountBankService.updateBalance(destiny);
 		}
 				
-		if(accountOrigin != null && TransactionType.RETIRO.equals(toValidate.getTransactionType())) {
-			accountBankService.updateBalance(accountOrigin);
+		if(origin != null && TransactionType.RETIRO.equals(toValidate.getTransactionType())) {
+			accountBankService.updateBalance(origin);
 		}
 		
-		if(accountDestiny != null && accountOrigin != null && TransactionType.TRANSFERENCIA.equals(toValidate.getTransactionType())) {
-			accountBankService.updateBalance(accountDestiny);
-			accountBankService.updateBalance(accountOrigin);
+		if(destiny != null && origin != null && TransactionType.TRANSFERENCIA.equals(toValidate.getTransactionType())) {
+			accountBankService.updateBalance(destiny);
+			accountBankService.updateBalance(origin);
+			
+        	final Transaction copyConsignacion = new Transaction(toValidate, TransactionType.CONSIGNACION);
+        	final TransactionEntity savedConsignacion = transactionRepository.saveAndFlush(entityMapper.toEntity(copyConsignacion));
+        	log.debug("saveAndFlush :: savedConsignacion: {}", savedConsignacion);
+        	
+        	final Transaction copyRetiro = new Transaction(toValidate, TransactionType.RETIRO);  
+            final TransactionEntity savedRetiro = transactionRepository.saveAndFlush(entityMapper.toEntity(copyRetiro));
+            log.debug("saveAndFlush :: savedRetiro: {}", savedRetiro);
 		}
         
         final TransactionEntity saved = transactionRepository.saveAndFlush(entityMapper.toEntity(toValidate));

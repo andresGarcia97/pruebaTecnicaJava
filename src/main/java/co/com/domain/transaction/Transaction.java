@@ -32,6 +32,16 @@ public class Transaction {
 		super();
 	}
     
+	public Transaction(final Transaction dataToCopy, TransactionType typeCopy) {
+		super();
+		
+		this.transactionType = typeCopy;
+		this.transactionDate = dataToCopy.getTransactionDate();
+		this.amount = dataToCopy.getAmount();
+	    this.destiny = dataToCopy.getDestiny();
+	    this.origin = dataToCopy.getOrigin();
+	}
+
 	public Transaction validateCreation() throws TransactionException, AccountBankException {
 		
 		final TransactionType type = this.transactionType;
