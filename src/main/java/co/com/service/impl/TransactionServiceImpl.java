@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import co.com.domain.accountbank.AccountBank;
 import co.com.domain.accountbank.AccountBankException;
 import co.com.domain.transaction.Transaction;
 import co.com.domain.transaction.TransactionException;
@@ -64,12 +65,20 @@ public class TransactionServiceImpl implements TransactionService {
     	final Transaction toValidate = domainMapper.toDomain(transaction).validateCreation();
         log.debug("saveAndFlush :: toValidate: {}", toValidate);
         
-		if(existAccountDestiny.isPresent() && toValidate.getDestiny() != null && TransactionType.CONSIGNACION.equals(toValidate.getTransactionType())) {
-			accountBankService.updateBalance(toValidate.getDestiny());
+		final AccountBank accountDestiny = toValidate.getDestiny();
+		final AccountBank accountOrigin = toValidate.getOrigin();
+		
+		if(accountDestiny != null && TransactionType.CONSIGNACION.equals(toValidate.getTransactionType())) {
+			accountBankService.updateBalance(accountDestiny);
+		}
+				
+		if(accountOrigin != null && TransactionType.RETIRO.equals(toValidate.getTransactionType())) {
+			accountBankService.updateBalance(accountOrigin);
 		}
 		
-		if(existAccountOrigin.isPresent() && toValidate.getOrigin() != null && TransactionType.RETIRO.equals(toValidate.getTransactionType())) {
-			accountBankService.updateBalance(toValidate.getOrigin());
+		if(accountDestiny != null && accountOrigin != null && TransactionType.TRANSFERENCIA.equals(toValidate.getTransactionType())) {
+			accountBankService.updateBalance(accountDestiny);
+			accountBankService.updateBalance(accountOrigin);
 		}
         
         final TransactionEntity saved = transactionRepository.saveAndFlush(entityMapper.toEntity(toValidate));
