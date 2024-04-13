@@ -64,6 +64,11 @@ public class AccountBank {
 		if(this.exentGMF == null) {
 			throw new AccountBankException("Se debe definir si la cuenta es exenta de GMF por obligación");
 		}
+		
+		if(this.lastModificationDate != null) {
+			log.warn("validateCreation :: intento de creacion con fecha de modificacion: {}, borrando campo", this.lastModificationDate);
+			this.setLastModificationDate(null);
+		}
 		        
         this.setNumber(generateRandonNumberAccount());
 		this.setCreationDate(ZonedDateTime.now().withNano(0));
@@ -91,8 +96,29 @@ public class AccountBank {
 		}
 		
 		accountBank.setState(stateToUpdate);
-		accountBank.setLastModificationDate(ZonedDateTime.now().withNano(0));
+		accountBank.setLastModificationDate(ZonedDateTime.now());
 		return accountBank;
+	}
+	
+	public void substractAmountToBalanceAccount(final BigDecimal amount) throws AccountBankException {
+		
+		final BigDecimal subtractResult = this.getBalance().subtract(amount);
+		
+		if(BigDecimal.ZERO.compareTo(subtractResult) > 0) {
+			throw new AccountBankException(new StringBuilder()
+					.append("No se puede restar la cantidad de: ").append(amount)
+					.append(" ya que el saldo actual es: ").append(this.balance)
+					.append(" y el saldo quedaria negativo: ").append(subtractResult)
+					.append(" en la cuenta con ID: ").append(this.id)
+					.append(" y numero: ").append(this.number)
+					.toString());
+		}
+		
+		this.setBalance(subtractResult);
+	}
+	
+	public void addAmountToBalanceAccount(final BigDecimal amount) {
+		this.setBalance(this.getBalance().add(amount));
 	}
 
     public Long getId() {

@@ -102,5 +102,12 @@ public class AccountBankServiceImpl implements AccountBankService {
 				? Optional.empty()
 				: accountBankRepository.findById(account.getId()).map(queriesMapper::toDto);
 	}
+
+	@Override
+	public void updateBalance(final AccountBank account) {
+		accountBankRepository.updateBalanceById(account.getBalance(), account.getId());
+		accountBankRepository.flush();
+		log.debug("updateBalance :: balance: {}, accountId: {}", account.getBalance(), account.getId());
+	}
     
 }

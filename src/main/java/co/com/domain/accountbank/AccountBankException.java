@@ -1,6 +1,6 @@
 package co.com.domain.accountbank;
 
-public class AccountBankException extends Exception {
+public final class AccountBankException extends Exception {
 
 	private static final long serialVersionUID = 1L;
 	
