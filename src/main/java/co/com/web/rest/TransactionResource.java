@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import co.com.domain.accountbank.AccountBankException;
 import co.com.domain.transaction.TransactionException;
 import co.com.service.TransactionService;
 import co.com.service.dto.TransactionDTO;
@@ -37,6 +38,9 @@ public class TransactionResource {
 			return ResponseEntity.ok(transactionService.saveAndFlush(transaction));
 		} catch (TransactionException e) {
 			log.error("Error to create transaction: {} ERROR: ", transaction, e);
+			return ResponseEntity.badRequest().body(e.getMessage());
+		} catch (AccountBankException e) {
+			log.error("Error to set accounts: {} ERROR: ", transaction, e);
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
     }

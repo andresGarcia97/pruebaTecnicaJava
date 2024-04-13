@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import co.com.domain.accountbank.AccountBank;
+import co.com.domain.accountbank.AccountBankException;
 import co.com.entities.enumeration.TransactionType;
 
 public class Transaction {
@@ -31,7 +32,7 @@ public class Transaction {
 		super();
 	}
     
-	public Transaction validateCreation() throws TransactionException {
+	public Transaction validateCreation() throws TransactionException, AccountBankException {
 		
 		final TransactionType type = this.transactionType;
 		this.validateObligatoryFields(type);
@@ -44,8 +45,20 @@ public class Transaction {
 		final boolean originAccountExist = this.origin != null;
 		
 		if(TransactionType.TRANSFERENCIA.equals(type) && destinyAccountExist && originAccountExist) {
+			
+			if(this.destiny.getId().equals(this.origin.getId())) {
+				throw new TransactionException(new StringBuilder()
+						.append("Una transaccion de tipo: ").append(type)
+						.append(" el origen y el destino No pueden ser iguales")
+						.append(" cuenta con ID: ").append(this.origin.getId())
+						.append(" y numero: ").append(this.origin.getNumber())
+						.toString());
+			}
+			
+			this.origin.substractAmountToBalanceAccount(this.amount);
+			this.destiny.addAmountToBalanceAccount(this.amount);
 			return this;
-		}
+		} 
 		else {
 			accountObligatory = "origen y destino";		
 		}
@@ -53,11 +66,11 @@ public class Transaction {
 		if(TransactionType.CONSIGNACION.equals(type) && destinyAccountExist) {
 			
 			if(originAccountExist) {
-				log.warn("validateCreation :: una consignacion no puede tener una cuenta de origen, borrando cuenta: {}",
-						this.origin);				
+				log.warn("validateCreation :: una {} no puede tener una cuenta de origen, borrando cuenta: {}",
+						type, this.origin);				
 				this.setOrigin(null);
 			}
-			
+			this.destiny.addAmountToBalanceAccount(this.amount);
 			return this;
 		}
 		else {
@@ -67,11 +80,11 @@ public class Transaction {
 		if(TransactionType.RETIRO.equals(type) && originAccountExist) {
 			
 			if(destinyAccountExist) {
-				log.warn("validateCreation :: un retiro no puede tener una cuenta de destino, borrando cuenta: {}",
-						this.destiny);				
+				log.warn("validateCreation :: un {} no puede tener una cuenta de destino, borrando cuenta: {}",
+						type, this.destiny);				
 				this.setDestiny(null);
 			}
-			
+			this.origin.substractAmountToBalanceAccount(this.amount);
 			return this;
 		}
 		else {

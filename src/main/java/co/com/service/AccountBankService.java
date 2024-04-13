@@ -3,6 +3,7 @@ package co.com.service;
 import java.util.List;
 import java.util.Optional;
 
+import co.com.domain.accountbank.AccountBank;
 import co.com.domain.accountbank.AccountBankException;
 import co.com.service.dto.AccountBankDTO;
 
@@ -14,6 +15,8 @@ public interface AccountBankService {
     
     List<AccountBankDTO> findAll();
 
-	Optional<AccountBankDTO> findAccountBank(final AccountBankDTO origin);
+	Optional<AccountBankDTO> findAccountBank(AccountBankDTO account);
+
+	void updateBalance(AccountBank account);
     
 }
