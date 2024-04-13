@@ -66,9 +66,14 @@ public class ClientResource {
     }
     
     @DeleteMapping("/{clientId}")
-    public ResponseEntity<Void> delete(@PathVariable(required = true) Long clientId) {
+    public ResponseEntity<?> delete(@PathVariable(required = true) Long clientId) {
         log.debug("REST request to delete client, clientId: {}", clientId);
-        clientService.delete(clientId);
-        return ResponseEntity.noContent().build();
+        try {
+			clientService.delete(clientId);
+			return ResponseEntity.noContent().build();
+		} catch (ClientException e) {
+			log.error("Error to delete clientId: {} ERROR: ", clientId, e);
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
     }
 }

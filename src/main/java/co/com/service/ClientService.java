@@ -14,7 +14,7 @@ public interface ClientService {
 
 	List<ClientDTO> findAll();
 
-	void delete(Long clientId);
+	void delete(Long clientId) throws ClientException;
 
 	Optional<ClientDTO> findById(Long clientId);
 }

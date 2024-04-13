@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import co.com.domain.client.Client;
 import co.com.domain.client.ClientException;
+import co.com.entities.AccountBankEntity;
 import co.com.entities.ClientEntity;
 import co.com.repository.ClientRepository;
 import co.com.service.ClientService;
@@ -70,7 +71,22 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public void delete(Long clientId) {
+    public void delete(Long clientId) throws ClientException {
+    	
+    	final Optional<ClientEntity> clientExist = clientRepository.findById(clientId);
+    	
+    	if(clientExist.isEmpty()) {
+    		return;
+    	}
+    	
+    	final ClientEntity clientToDelete = clientExist.get();
+    	
+    	if(clientToDelete.getAccounts() != null && !clientToDelete.getAccounts().isEmpty()) {
+    		
+    		final List<Long> accountIds = clientToDelete.getAccounts().stream().map(AccountBankEntity::getNumber).toList();
+    		throw new ClientException("No se puede eliminar este cliente, ya que esta asociado a las siguientes cuentas: " + accountIds);
+    	}
+    	
         log.debug("delete :: clientId: {}", clientId);
         clientRepository.deleteById(clientId);
     }
