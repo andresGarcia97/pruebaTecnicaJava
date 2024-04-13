@@ -4,13 +4,11 @@ import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Objects;
-import java.util.Set;
 import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import co.com.domain.accountbank.AccountBank;
 import co.com.entities.enumeration.IdentificationType;
 
 public class Client {
@@ -39,8 +37,6 @@ public class Client {
 
 	private ZonedDateTime lastModificationDate;
 	
-	private Set<AccountBank> accounts;
-
 	public Client() {
 		super();
 	}
@@ -50,6 +46,10 @@ public class Client {
 		this.validateBornDate();
 		this.validateNameAndLastName();
 		this.validateEmail();
+		
+		if(this.lastModificationDate != null) {
+			throw new ClientException("Un cliente nuevo, No puede tener fecha de modificación");
+		}
 
 		this.setCreationDate(ZonedDateTime.now().withNano(0));
 		return this;
@@ -186,17 +186,9 @@ public class Client {
 		this.lastModificationDate = lastModificationDate;
 	}
 
-	public Set<AccountBank> getAccounts() {
-		return accounts;
-	}
-
-	public void setAccounts(Set<AccountBank> accounts) {
-		this.accounts = accounts;
-	}
-
 	@Override
 	public int hashCode() {
-		return Objects.hash(accounts, bornDate, creationDate, email, id, identification, identificationType,
+		return Objects.hash(bornDate, creationDate, email, id, identification, identificationType,
 				lastModificationDate, lastName, name);
 	}
 
@@ -209,7 +201,7 @@ public class Client {
 		if (getClass() != obj.getClass())
 			return false;
 		Client other = (Client) obj;
-		return Objects.equals(accounts, other.accounts) && Objects.equals(bornDate, other.bornDate)
+		return Objects.equals(bornDate, other.bornDate)
 				&& Objects.equals(creationDate, other.creationDate) && Objects.equals(email, other.email)
 				&& Objects.equals(id, other.id) && Objects.equals(identification, other.identification)
 				&& identificationType == other.identificationType
@@ -230,7 +222,6 @@ public class Client {
 				", bornDate='" + getBornDate() + "'" +
 				", creationDate='" + getCreationDate() + "'" +
 				", lastModificationDate='" + getLastModificationDate() + "'" +
-				", accounts='" + getAccounts() + "'" +
 				"}";
 	}
 
