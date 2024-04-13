@@ -65,8 +65,7 @@ public class AccountBankEntity implements Serializable {
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    // TODO cambiar este atributo en el changelog tambien
-    @JoinColumn(name = "account_id", referencedColumnName = "id")
+    @JoinColumn(name = "client_id", referencedColumnName = "id")
     private ClientEntity client;
     
     public AccountBankEntity() {

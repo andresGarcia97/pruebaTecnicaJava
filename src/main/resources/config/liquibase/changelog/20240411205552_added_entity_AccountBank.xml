@@ -35,8 +35,8 @@
             <column name="last_modification_date" type="${datetimeType}">
                 <constraints nullable="true" />
             </column>
-            <column name="account_id" type="bigint">
-                <constraints nullable="false" unique="false" uniqueConstraintName="ux_account_bank_account_id" />
+            <column name="client_id" type="bigint">
+                <constraints nullable="false" unique="false" uniqueConstraintName="ux_client_bank_account_id" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
@@ -45,13 +45,5 @@
     </changeSet>
 
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
-
-    <!--
-        Load sample data generated with Faker.js
-        - This data can be easily edited using a CSV editor (or even MS Excel) and
-          is located in the 'src/main/resources/config/liquibase/fake-data' directory
-        - By default this data is applied when running with the JHipster 'dev' profile.
-          This can be customized by adding or removing 'faker' in the 'spring.liquibase.contexts'
-          Spring Boot configuration key.
-    -->
+    
 </databaseChangeLog>
