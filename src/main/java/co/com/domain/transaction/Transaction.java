@@ -5,10 +5,15 @@ import java.time.ZonedDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import co.com.domain.accountbank.AccountBank;
 import co.com.entities.enumeration.TransactionType;
 
 public class Transaction {
+	
+    private static final Logger log = LoggerFactory.getLogger(Transaction.class);
 
 	private UUID id;
 	
@@ -26,9 +31,67 @@ public class Transaction {
 		super();
 	}
     
-	public Transaction validateCreation() {
+	public Transaction validateCreation() throws TransactionException {
+		
+		final TransactionType type = this.transactionType;
+		this.validateObligatoryFields(type);
+		
+		this.setTransactionDate(ZonedDateTime.now());
+		
+		String accountObligatory = "";
+		
+		final boolean destinyAccountExist = this.destiny != null;
+		final boolean originAccountExist = this.origin != null;
+		
+		if(TransactionType.TRANSFERENCIA.equals(type) && destinyAccountExist && originAccountExist) {
+			return this;
+		}
+		else {
+			accountObligatory = "origen y destino";		
+		}
 
-		return this;
+		if(TransactionType.CONSIGNACION.equals(type) && destinyAccountExist) {
+			
+			if(originAccountExist) {
+				log.warn("validateCreation :: una consignacion no puede tener una cuenta de origen, borrando cuenta: {}",
+						this.origin);				
+				this.setOrigin(null);
+			}
+			
+			return this;
+		}
+		else {
+			accountObligatory = "origen";			
+		}
+		
+		if(TransactionType.RETIRO.equals(type) && originAccountExist) {
+			
+			if(destinyAccountExist) {
+				log.warn("validateCreation :: un retiro no puede tener una cuenta de destino, borrando cuenta: {}",
+						this.destiny);				
+				this.setDestiny(null);
+			}
+			
+			return this;
+		}
+		else {
+			accountObligatory = "destino";			
+		}
+		
+		log.error("validateCreation :: type: {}, accountObligatory: {}, destinyAccountExist: {}, originAccountExist: {}",
+				type, accountObligatory, destinyAccountExist, originAccountExist);
+		throw new TransactionException("Las transaciones de tipo: " + type.toString() + " Deben contar con la cuenta de " + accountObligatory);
+		
+	}
+	
+	private void validateObligatoryFields(final TransactionType type) throws TransactionException {
+		if(type == null) {
+			throw new TransactionException("El tipo de transacción es obligatoria");
+		}
+		
+		if(this.amount == null || BigDecimal.ZERO.compareTo(this.amount) >= 0) {
+			throw new TransactionException("El monto de la transacción es obligatorio y debe ser mayor o igual a Zero");
+		}
 	}
 
     public UUID getId() {

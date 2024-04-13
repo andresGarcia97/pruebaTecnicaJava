@@ -1,6 +1,7 @@
 package co.com.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -93,5 +94,13 @@ public class AccountBankServiceImpl implements AccountBankService {
     public List<AccountBankDTO> findAll() {
         return accountBankRepository.findAll().stream().map(queriesMapper::toDto).toList();
     }
+
+	@Override
+	@Transactional(readOnly = true)
+	public Optional<AccountBankDTO> findAccountBank(final AccountBankDTO account) {
+		return (account == null || account.getId() == null)
+				? Optional.empty()
+				: accountBankRepository.findById(account.getId()).map(queriesMapper::toDto);
+	}
     
 }

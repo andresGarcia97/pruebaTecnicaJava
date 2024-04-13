@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import co.com.domain.transaction.TransactionException;
 import co.com.service.TransactionService;
 import co.com.service.dto.TransactionDTO;
 
@@ -27,12 +28,17 @@ public class TransactionResource {
     }
     
     @PostMapping("")
-    public ResponseEntity<TransactionDTO> createTransaction(@RequestBody(required = true) final TransactionDTO transaction) {
+    public ResponseEntity<?> createTransaction(@RequestBody(required = true) final TransactionDTO transaction) {
         log.debug("REST request to save transaction: {}", transaction);
         if (transaction.getId() != null) {
             throw new IllegalArgumentException("A new transaction cannot already have an ID");
         }
-        return ResponseEntity.ok(transactionService.saveAndFlush(transaction));
+        try {
+			return ResponseEntity.ok(transactionService.saveAndFlush(transaction));
+		} catch (TransactionException e) {
+			log.error("Error to create transaction: {} ERROR: ", transaction, e);
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
     }
     
     @GetMapping("")

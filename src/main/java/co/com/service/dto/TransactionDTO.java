@@ -6,6 +6,9 @@ import java.time.ZonedDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import co.com.entities.enumeration.TransactionType;
 
 public class TransactionDTO implements Serializable {
@@ -20,8 +23,10 @@ public class TransactionDTO implements Serializable {
     
     private BigDecimal amount;
 
+    @JsonInclude(Include.NON_NULL)
     private AccountBankDTO origin;
     
+    @JsonInclude(Include.NON_NULL)
     private AccountBankDTO destiny;
     
     public TransactionDTO() {
