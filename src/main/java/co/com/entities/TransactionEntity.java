@@ -45,11 +45,11 @@ public class TransactionEntity implements Serializable {
     private BigDecimal amount;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(unique = true)
+    @JoinColumn(unique = false)
     private AccountBankEntity origin;
     
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(unique = true)
+    @JoinColumn(unique = false)
     private AccountBankEntity destiny;
     
     public TransactionEntity() {
@@ -129,6 +129,8 @@ public class TransactionEntity implements Serializable {
             ", transactionType='" + getTransactionType() + "'" +
             ", transactionDate='" + getTransactionDate() + "'" +
             ", amount=" + getAmount() +
+            ", origin=" + getOrigin() +
+            ", destiny=" + getDestiny() +
             "}";
     }
 }

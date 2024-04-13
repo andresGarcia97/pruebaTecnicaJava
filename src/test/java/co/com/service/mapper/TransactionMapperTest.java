@@ -2,9 +2,11 @@ package co.com.service.mapper;
 
 import org.junit.jupiter.api.BeforeEach;
 
+import co.com.service.mapper.transaction.TransactionQueriesMapper;
+
 class TransactionMapperTest {
 
-    private TransactionMapper transactionMapper;
+    private TransactionQueriesMapper transactionMapper;
 
     @BeforeEach
     public void setUp() {

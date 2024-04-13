@@ -1,16 +1,14 @@
-package co.com.service.dto;
+package co.com.domain.transaction;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
+import co.com.domain.accountbank.AccountBank;
 import co.com.entities.enumeration.TransactionType;
 
-public class TransactionDTO implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class Transaction {
 
 	private UUID id;
 	
@@ -20,12 +18,17 @@ public class TransactionDTO implements Serializable {
     
     private BigDecimal amount;
 
-    private AccountBankDTO origin;
+    private AccountBank origin;
     
-    private AccountBankDTO destiny;
+    private AccountBank destiny;
     
-    public TransactionDTO() {
+    public Transaction() {
 		super();
+	}
+    
+	public Transaction validateCreation() {
+
+		return this;
 	}
 
     public UUID getId() {
@@ -60,19 +63,19 @@ public class TransactionDTO implements Serializable {
         this.amount = amount;
     }
 
-    public AccountBankDTO getOrigin() {
+    public AccountBank getOrigin() {
         return origin;
     }
 
-    public void setOrigin(AccountBankDTO origin) {
+    public void setOrigin(AccountBank origin) {
         this.origin = origin;
     }
     
-    public AccountBankDTO getDestiny() {
+    public AccountBank getDestiny() {
 		return destiny;
 	}
 
-	public void setDestiny(AccountBankDTO destiny) {
+	public void setDestiny(AccountBank destiny) {
 		this.destiny = destiny;
 	}
 	
@@ -89,7 +92,7 @@ public class TransactionDTO implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		TransactionDTO other = (TransactionDTO) obj;
+		Transaction other = (Transaction) obj;
 		return Objects.equals(amount, other.amount) && Objects.equals(destiny, other.destiny)
 				&& Objects.equals(id, other.id) && Objects.equals(origin, other.origin)
 				&& Objects.equals(transactionDate, other.transactionDate) && transactionType == other.transactionType;
@@ -98,7 +101,7 @@ public class TransactionDTO implements Serializable {
 	// prettier-ignore
     @Override
     public String toString() {
-        return "TransactionDTO{" +
+        return "Transaction{" +
             "id='" + getId() + "'" +
             ", transactionType='" + getTransactionType() + "'" +
             ", transactionDate='" + getTransactionDate() + "'" +
@@ -107,4 +110,5 @@ public class TransactionDTO implements Serializable {
             ", destiny=" + getDestiny() +
             "}";
     }
+    
 }

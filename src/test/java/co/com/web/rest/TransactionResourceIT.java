@@ -12,7 +12,7 @@ import co.com.entities.TransactionEntity;
 import co.com.entities.enumeration.TransactionType;
 import co.com.repository.TransactionRepository;
 import co.com.service.dto.TransactionDTO;
-import co.com.service.mapper.TransactionMapper;
+import co.com.service.mapper.transaction.TransactionQueriesMapper;
 import jakarta.persistence.EntityManager;
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -54,7 +54,7 @@ class TransactionResourceIT {
     private TransactionRepository transactionRepository;
 
     @Autowired
-    private TransactionMapper transactionMapper;
+    private TransactionQueriesMapper transactionMapper;
 
     @Autowired
     private EntityManager em;
