@@ -13,5 +13,4 @@ public interface AccountBankService {
     
     List<AccountBankDTO> findAll();
     
-    void delete(Long id);
 }

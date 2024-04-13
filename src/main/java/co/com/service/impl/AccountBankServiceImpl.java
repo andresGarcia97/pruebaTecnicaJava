@@ -80,9 +80,11 @@ public class AccountBankServiceImpl implements AccountBankService {
     			.orElseThrow(() -> new AccountBankException("No existe una cuenta bancaria con el ID proporcionado"));
     	
         final AccountBank toUpdate = domainMapper.toDomain(accountBank).validateUpdate(entityMapper.toDomain(accountBankFound));
-        final AccountBankEntity updated = accountBankRepository.save(entityMapper.toEntity(toUpdate));
         log.debug("update :: toUpdate: {}", toUpdate);
+        
+        final AccountBankEntity updated = accountBankRepository.save(entityMapper.toEntity(toUpdate));
         log.debug("update :: updated: {}", updated);
+        
         return queriesMapper.toDto(updated);
     }
 
@@ -91,10 +93,5 @@ public class AccountBankServiceImpl implements AccountBankService {
     public List<AccountBankDTO> findAll() {
         return accountBankRepository.findAll().stream().map(queriesMapper::toDto).toList();
     }
-
-    @Override
-    public void delete(Long accountBankId) {
-        log.debug("delete :: accountBankId: {}", accountBankId);
-        accountBankRepository.deleteById(accountBankId);
-    }
+    
 }
