@@ -3,6 +3,7 @@ package co.com.domain.accountbank;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.Objects;
+import java.util.Random;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,8 @@ import co.com.entities.enumeration.AccountType;
 public class AccountBank {
 	
 	private static final Logger log = LoggerFactory.getLogger(AccountBank.class);
+	
+	private final Random random = new Random();
 
 	private Long id;
 
@@ -44,16 +47,32 @@ public class AccountBank {
 			throw new AccountBankException("El tipo de cuenta es obligatorio");
 		}
 		
-		if(AccountType.CUENTA_AHORROS.equals(type)) {
+		final boolean accountIsAhorros = AccountType.CUENTA_AHORROS.equals(type);
+		
+		if(accountIsAhorros) {
 			this.setState(AccountState.ACTIVA);
 		}
 		else if(this.state == null) {
-			throw new AccountBankException("EL estado de la cuenta es obligatorio, al ser una cuenta de tipo: " + type.toString());
+			throw new AccountBankException("El estado de la cuenta es obligatorio, al ser una cuenta de tipo: " + type.toString());
 		}
 		
-		log.debug("validateCreation:: {} {}", this, this.getClient());
+		if(this.balance == null || BigDecimal.ZERO.compareTo(this.balance) >= 0) {
+			log.warn("validateCreation :: no tiene balance o es menor a zero: {}, modificando a Zero", this.balance);
+			this.setBalance(BigDecimal.ZERO);
+		}
 		
+		if(this.exentGMF == null) {
+			throw new AccountBankException("Se debe definir si la cuenta es exenta de GMF por obligación");
+		}
+		        
+        this.setNumber(generateRandonNumberAccount());
+		this.setCreationDate(ZonedDateTime.now().withNano(0));
 		return this;
+	}
+
+	public Long generateRandonNumberAccount() {
+		final int random8Numbers = 10000000 + random.nextInt(99999999);
+        return Long.valueOf(this.accountType.getStartNumber() + String.valueOf(random8Numbers));
 	}
 
     public Long getId() {

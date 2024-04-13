@@ -49,7 +49,7 @@ public class AccountBankServiceImpl implements AccountBankService {
     public AccountBankDTO save(final AccountBankDTO accountBank) throws AccountBankException {
     	
 		if(accountBank.getClient() == null || accountBank.getClient().getId() == null) {
-			throw new AccountBankException("La cuenta debe estar asociada a un Cliente por obligacion");
+			throw new AccountBankException("La cuenta debe estar asociada a un cliente obligatoriamente");
 		}
     	
     	final ClientDTO clientFound = clientService.findById(accountBank.getClient().getId())
@@ -58,8 +58,16 @@ public class AccountBankServiceImpl implements AccountBankService {
     	accountBank.setClient(clientFound);
     	
         final AccountBank toValidate = domainMapper.toDomain(accountBank).validateCreation();
-        final AccountBankEntity saved = accountBankRepository.save(entityMapper.toEntity(toValidate));
         log.debug("save :: toValidate: {}", toValidate);
+        
+        accountBankRepository.findByNumber(toValidate.getNumber())
+        .ifPresent(accountNumberRepeated -> {
+        	toValidate.setNumber(toValidate.generateRandonNumberAccount());
+        	log.warn("save :: Numero de cuenta repetido, generando de nuevo, newGeneration: {}, previousExist: {}, accountId: {}",
+        			toValidate.getNumber(), accountNumberRepeated.getNumber(), accountNumberRepeated.getId());
+        });
+        
+        final AccountBankEntity saved = accountBankRepository.save(entityMapper.toEntity(toValidate));
         log.debug("save :: saved: {}", saved);
 		return queriesMapper.toDto(saved);
     }
