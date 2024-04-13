@@ -89,6 +89,7 @@ spring:
     mode: HTML
   output:
     ansi:
+      enabled: always
       console-available: true
 
 server:

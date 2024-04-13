@@ -45,9 +45,11 @@ public class ClientServiceImpl implements ClientService {
     public ClientDTO save(final ClientDTO client) throws ClientException {
     	
         final Client toValidate = domainMapper.toDomain(client).validateCreation();
-        final ClientEntity saved = clientRepository.save(entityMapper.toEntity(toValidate));
         log.debug("save :: toValidate: {}", toValidate);
+        
+        final ClientEntity saved = clientRepository.save(entityMapper.toEntity(toValidate));
         log.debug("save :: saved: {}", saved);
+        
 		return queriesMapper.toDto(saved);
     }
 
@@ -58,9 +60,11 @@ public class ClientServiceImpl implements ClientService {
     			.orElseThrow(() -> new ClientException("No existe un cliente con el ID proporcionado"));
     	
         final Client toUpdate = domainMapper.toDomain(client).validateUpdate(entityMapper.toDomain(clientFound));
-        final ClientEntity updated = clientRepository.save(entityMapper.toEntity(toUpdate));
         log.debug("update :: toUpdate: {}", toUpdate);
+        
+        final ClientEntity updated = clientRepository.save(entityMapper.toEntity(toUpdate));
         log.debug("update :: updated: {}", updated);
+        
         return queriesMapper.toDto(updated);
     }
 
