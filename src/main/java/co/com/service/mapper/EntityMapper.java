@@ -3,7 +3,7 @@ package co.com.service.mapper;
 import java.util.List;
 
 /**
- * Contract for a generic domain to entity mapper.
+ * Contract for a generic Domain to Entity mapper.
  *
  * @param <D> - Domain type parameter.
  * @param <E> - Entity type parameter.

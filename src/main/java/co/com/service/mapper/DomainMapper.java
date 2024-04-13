@@ -1,14 +1,15 @@
 package co.com.service.mapper;
 
-import java.util.List;
+/**
+ * Contract for a generic DTO to Domain mapper.
+ *
+ * @param <D> - DTO type parameter.
+ * @param <B> - Domain type parameter.
+ */
 
-public interface DomainMapper<D, E> {
-    E toDomain(D dto);
+public interface DomainMapper<D, B> {
+    B toDomain(D dto);
 
-    D toDto(E entity);
-
-    List<E> toDomain(List<D> dtoList);
-
-    List<D> toDto(List<E> entityList);
+    D toDto(B domain);
    
 }
