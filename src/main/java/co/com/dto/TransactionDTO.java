@@ -1,4 +1,4 @@
-package co.com.service.dto;
+package co.com.dto;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

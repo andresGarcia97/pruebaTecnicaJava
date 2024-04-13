@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import co.com.domain.client.ClientException;
-import co.com.service.dto.ClientDTO;
+import co.com.dto.ClientDTO;
 
 public interface ClientService {
 

@@ -1,4 +1,4 @@
-package co.com.web.rest;
+package co.com.controller;
 
 import java.util.List;
 
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import co.com.domain.accountbank.AccountBankException;
 import co.com.domain.transaction.TransactionException;
+import co.com.dto.TransactionDTO;
 import co.com.service.TransactionService;
-import co.com.service.dto.TransactionDTO;
 
 @RestController
 @RequestMapping("/api/transactions")

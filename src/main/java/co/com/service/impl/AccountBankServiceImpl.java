@@ -10,12 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import co.com.domain.accountbank.AccountBank;
 import co.com.domain.accountbank.AccountBankException;
+import co.com.dto.AccountBankDTO;
+import co.com.dto.ClientDTO;
 import co.com.entities.AccountBankEntity;
 import co.com.repository.AccountBankRepository;
 import co.com.service.AccountBankService;
 import co.com.service.ClientService;
-import co.com.service.dto.AccountBankDTO;
-import co.com.service.dto.ClientDTO;
 import co.com.service.mapper.accountbank.AccountBankDomainMapper;
 import co.com.service.mapper.accountbank.AccountBankEntityMapper;
 import co.com.service.mapper.accountbank.AccountBankQueriesMapper;

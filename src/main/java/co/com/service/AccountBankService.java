@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import co.com.domain.accountbank.AccountBank;
 import co.com.domain.accountbank.AccountBankException;
-import co.com.service.dto.AccountBankDTO;
+import co.com.dto.AccountBankDTO;
 
 public interface AccountBankService {
 	

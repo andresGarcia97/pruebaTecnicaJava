@@ -4,7 +4,7 @@ import java.util.List;
 
 import co.com.domain.accountbank.AccountBankException;
 import co.com.domain.transaction.TransactionException;
-import co.com.service.dto.TransactionDTO;
+import co.com.dto.TransactionDTO;
 
 public interface TransactionService {
 	

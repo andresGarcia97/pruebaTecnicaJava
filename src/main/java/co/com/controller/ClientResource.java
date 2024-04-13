@@ -1,4 +1,4 @@
-package co.com.web.rest;
+package co.com.controller;
 
 import java.util.List;
 
@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.com.domain.client.ClientException;
+import co.com.dto.ClientDTO;
 import co.com.service.ClientService;
-import co.com.service.dto.ClientDTO;
 
 
 @RestController
