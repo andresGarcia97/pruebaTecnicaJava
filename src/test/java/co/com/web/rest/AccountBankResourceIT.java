@@ -8,12 +8,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import co.com.IntegrationTest;
+import co.com.controller.AccountBankResource;
+import co.com.dto.AccountBankDTO;
 import co.com.entities.AccountBankEntity;
 import co.com.entities.ClientEntity;
 import co.com.entities.enumeration.AccountState;
 import co.com.entities.enumeration.AccountType;
 import co.com.repository.AccountBankRepository;
-import co.com.service.dto.AccountBankDTO;
 import co.com.service.mapper.accountbank.AccountBankQueriesMapper;
 import jakarta.persistence.EntityManager;
 import java.math.BigDecimal;

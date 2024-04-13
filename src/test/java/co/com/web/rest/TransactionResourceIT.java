@@ -8,10 +8,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import co.com.IntegrationTest;
+import co.com.controller.TransactionResource;
+import co.com.dto.TransactionDTO;
 import co.com.entities.TransactionEntity;
 import co.com.entities.enumeration.TransactionType;
 import co.com.repository.TransactionRepository;
-import co.com.service.dto.TransactionDTO;
 import co.com.service.mapper.transaction.TransactionQueriesMapper;
 import jakarta.persistence.EntityManager;
 import java.math.BigDecimal;

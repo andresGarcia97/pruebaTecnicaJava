@@ -7,10 +7,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import co.com.IntegrationTest;
+import co.com.controller.ClientResource;
+import co.com.dto.ClientDTO;
 import co.com.entities.ClientEntity;
 import co.com.entities.enumeration.IdentificationType;
 import co.com.repository.ClientRepository;
-import co.com.service.dto.ClientDTO;
 import co.com.service.mapper.client.ClientQueriesMapper;
 import jakarta.persistence.EntityManager;
 import java.time.Instant;
