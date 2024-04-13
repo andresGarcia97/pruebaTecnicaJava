@@ -9,7 +9,7 @@ public interface AccountBankService {
 	
     AccountBankDTO save(AccountBankDTO accountBank) throws AccountBankException;
     
-    AccountBankDTO update(AccountBankDTO accountBank);
+    AccountBankDTO update(AccountBankDTO accountBank) throws AccountBankException;
     
     List<AccountBankDTO> findAll();
     

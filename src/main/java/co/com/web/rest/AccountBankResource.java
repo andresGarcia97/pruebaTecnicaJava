@@ -1,8 +1,6 @@
 package co.com.web.rest;
 
-import java.net.URISyntaxException;
 import java.util.List;
-import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,10 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.com.domain.accountbank.AccountBankException;
-import co.com.repository.AccountBankRepository;
 import co.com.service.AccountBankService;
 import co.com.service.dto.AccountBankDTO;
-import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/account-banks")
@@ -30,11 +26,8 @@ public class AccountBankResource {
 
     private final AccountBankService accountBankService;
 
-    private final AccountBankRepository accountBankRepository;
-
-    public AccountBankResource(AccountBankService accountBankService, AccountBankRepository accountBankRepository) {
+    public AccountBankResource(AccountBankService accountBankService) {
         this.accountBankService = accountBankService;
-        this.accountBankRepository = accountBankRepository;
     }
     
     @PostMapping("")
@@ -48,25 +41,18 @@ public class AccountBankResource {
 		}
     }
     
-    @PutMapping("/{id}")
-    public ResponseEntity<AccountBankDTO> updateAccountBank(
-        @PathVariable(value = "id", required = false) final Long id,
-        @Valid @RequestBody AccountBankDTO accountBankDTO
-    ) throws URISyntaxException {
-        log.debug("REST request to update AccountBank : {}, {}", id, accountBankDTO);
-        if (accountBankDTO.getId() == null) {
-            throw new IllegalArgumentException("Invalid id idnull");
+    @PutMapping("")
+    public ResponseEntity<?> updateAccountBank(@RequestBody(required = true) final AccountBankDTO accountBank) {
+        log.debug("REST request to update accountBank: {}", accountBank);
+        if (accountBank == null || accountBank.getId() == null) {
+            throw new IllegalArgumentException("Invalid ID");
         }
-        if (!Objects.equals(id, accountBankDTO.getId())) {
-            throw new IllegalArgumentException("Invalid ID, idinvalid");
-        }
-
-        if (!accountBankRepository.existsById(id)) {
-            throw new IllegalArgumentException("Entity not found, idnotfound");
-        }
-
-        AccountBankDTO result = accountBankService.update(accountBankDTO);
-        return ResponseEntity.ok().body(result);
+        try {
+			return ResponseEntity.ok().body(accountBankService.update(accountBank));
+		} catch (AccountBankException e) {
+			log.error("Error to update accountBank: {} ERROR: ", accountBank, e);
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
     }
 
     @GetMapping("")
@@ -75,10 +61,10 @@ public class AccountBankResource {
         return accountBankService.findAll();
     }
     
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteAccountBank(@PathVariable Long id) {
-        log.debug("REST request to delete AccountBank : {}", id);
-        accountBankService.delete(id);
+    @DeleteMapping("/{accountBankId}")
+    public ResponseEntity<Void> deleteAccountBank(@PathVariable(required = true) Long accountBankId) {
+        log.debug("REST request to delete accountBankId: {}", accountBankId);
+        accountBankService.delete(accountBankId);
         return ResponseEntity.noContent().build();
     }
 }

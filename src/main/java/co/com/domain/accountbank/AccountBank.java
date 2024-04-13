@@ -74,6 +74,26 @@ public class AccountBank {
 		final int random8Numbers = 10000000 + random.nextInt(99999999);
         return Long.valueOf(this.accountType.getStartNumber() + String.valueOf(random8Numbers));
 	}
+	
+	public AccountBank validateUpdate(final AccountBank accountBank) throws AccountBankException {
+		
+		final AccountState stateToUpdate = this.state;
+		if(stateToUpdate == null) {
+			throw new AccountBankException("El estado de la cuenta, es obligatorio para su actualización");
+		}
+		
+		if(stateToUpdate.equals(accountBank.getState())) {
+			return accountBank;
+		}
+		
+		if(AccountState.CANCELADA.equals(stateToUpdate) && BigDecimal.ZERO.compareTo(accountBank.getBalance()) != 0) {
+			throw new AccountBankException("Solo se pueden cancelar las cuentas con saldo 0, saldo actual: $" + accountBank.getBalance());
+		}
+		
+		accountBank.setState(stateToUpdate);
+		accountBank.setLastModificationDate(ZonedDateTime.now().withNano(0));
+		return accountBank;
+	}
 
     public Long getId() {
         return id;

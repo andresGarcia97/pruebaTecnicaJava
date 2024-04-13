@@ -69,16 +69,21 @@ public class AccountBankServiceImpl implements AccountBankService {
         
         final AccountBankEntity saved = accountBankRepository.save(entityMapper.toEntity(toValidate));
         log.debug("save :: saved: {}", saved);
+        
 		return queriesMapper.toDto(saved);
     }
 
     @Override
-    public AccountBankDTO update(AccountBankDTO accountBankDTO) {
-//        log.debug("Request to update AccountBankEntity : {}", accountBankDTO);
-//        AccountBankEntity accountBank = queriesMapper.toEntity(accountBankDTO);
-//        accountBank = accountBankRepository.save(accountBank);
-//        return queriesMapper.toDomain(accountBank);
-    	return null;
+    public AccountBankDTO update(final AccountBankDTO accountBank) throws AccountBankException {
+    	
+    	final AccountBankEntity accountBankFound = accountBankRepository.findById(accountBank.getId())
+    			.orElseThrow(() -> new AccountBankException("No existe una cuenta bancaria con el ID proporcionado"));
+    	
+        final AccountBank toUpdate = domainMapper.toDomain(accountBank).validateUpdate(entityMapper.toDomain(accountBankFound));
+        final AccountBankEntity updated = accountBankRepository.save(entityMapper.toEntity(toUpdate));
+        log.debug("update :: toUpdate: {}", toUpdate);
+        log.debug("update :: updated: {}", updated);
+        return queriesMapper.toDto(updated);
     }
 
     @Override

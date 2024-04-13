@@ -65,7 +65,7 @@ public class ClientResource {
         return clientService.findAll();
     }
     
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{clientId}")
     public ResponseEntity<Void> delete(@PathVariable(required = true) Long clientId) {
         log.debug("REST request to delete client, clientId: {}", clientId);
         clientService.delete(clientId);
