@@ -66,7 +66,7 @@ public class Client {
 			throw new ClientException("No se puede cambiar la fecha de creacion");
 		}
 		
-		this.setLastModificationDate(ZonedDateTime.now().withNano(0));
+		this.setLastModificationDate(ZonedDateTime.now());
 		return this;
 	}
 

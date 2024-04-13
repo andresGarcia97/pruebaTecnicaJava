@@ -1,6 +1,6 @@
 package co.com.domain.client;
 
-public class ClientException extends Exception {
+public final class ClientException extends Exception {
 
 	private static final long serialVersionUID = 1L;
 	
