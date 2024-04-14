@@ -48,7 +48,7 @@ public class Transaction {
 
 		this.setTransactionDate(ZonedDateTime.now());
 
-		String accountObligatory = "";
+		String accountObligatory = "origen y destino";
 
 		final boolean destinyAccountExist = this.destiny != null;
 		final boolean originAccountExist = this.origin != null;
@@ -67,12 +67,10 @@ public class Transaction {
 			this.origin.substractAmountToBalanceAccount(this.amount);
 			this.destiny.addAmountToBalanceAccount(this.amount);
 			return this;
-		} 
-		else {
-			accountObligatory = "origen y destino";		
 		}
 
-		if(TransactionType.CONSIGNACION.equals(type) && destinyAccountExist) {
+		final boolean transactionIsConsignacion = TransactionType.CONSIGNACION.equals(type);
+		if(transactionIsConsignacion && destinyAccountExist) {
 
 			if(originAccountExist) {
 				log.warn("validateCreation :: una {} no puede tener una cuenta de origen, borrando cuenta: {}",
@@ -82,11 +80,12 @@ public class Transaction {
 			this.destiny.addAmountToBalanceAccount(this.amount);
 			return this;
 		}
-		else {
-			accountObligatory = "origen";			
+		else if(transactionIsConsignacion){
+			accountObligatory = "destino";			
 		}
 
-		if(TransactionType.RETIRO.equals(type) && originAccountExist) {
+		final boolean transactionIsRetiro = TransactionType.RETIRO.equals(type);
+		if(transactionIsRetiro && originAccountExist) {
 
 			if(destinyAccountExist) {
 				log.warn("validateCreation :: un {} no puede tener una cuenta de destino, borrando cuenta: {}",
@@ -96,13 +95,13 @@ public class Transaction {
 			this.origin.substractAmountToBalanceAccount(this.amount);
 			return this;
 		}
-		else {
-			accountObligatory = "destino";			
+		else if(transactionIsRetiro){
+			accountObligatory = "origen";			
 		}
 
 		log.error("validateCreation :: type: {}, accountObligatory: {}, destinyAccountExist: {}, originAccountExist: {}",
 				type, accountObligatory, destinyAccountExist, originAccountExist);
-		throw new TransactionException("Las transaciones de tipo: " + type.toString() + " Deben contar con la cuenta de " + accountObligatory);
+		throw new TransactionException("Las transaciones de tipo: " + type.name() + " Deben contar con la cuenta de: " + accountObligatory);
 
 	}
 
