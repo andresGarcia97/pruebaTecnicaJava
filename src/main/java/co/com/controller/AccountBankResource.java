@@ -59,7 +59,6 @@ public class AccountBankResource {
 
 	@GetMapping("")
 	public List<AccountBankDTO> getAll() {
-		log.info("REST request to get all accountBanks");
 		return accountBankService.findAll();
 	}
 

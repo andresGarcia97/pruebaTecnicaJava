@@ -13,49 +13,48 @@ import co.com.domain.accountbank.AccountBankException;
 import co.com.entities.enumeration.TransactionType;
 
 public class Transaction {
-	
-    private static final Logger log = LoggerFactory.getLogger(Transaction.class);
+
+	private static final Logger log = LoggerFactory.getLogger(Transaction.class);
 
 	private UUID id;
-	
-    private TransactionType transactionType;
-    
-    private ZonedDateTime transactionDate;
-    
-    private BigDecimal amount;
 
-    private AccountBank origin;
-    
-    private AccountBank destiny;
-    
-    public Transaction() {
+	private TransactionType transactionType;
+
+	private ZonedDateTime transactionDate;
+
+	private BigDecimal amount;
+
+	private AccountBank origin;
+
+	private AccountBank destiny;
+
+	public Transaction() {
 		super();
 	}
-    
+
 	public Transaction(final Transaction dataToCopy, TransactionType typeCopy) {
 		super();
-		
 		this.transactionType = typeCopy;
 		this.transactionDate = dataToCopy.getTransactionDate();
 		this.amount = dataToCopy.getAmount();
-	    this.destiny = dataToCopy.getDestiny();
-	    this.origin = dataToCopy.getOrigin();
+		this.destiny = dataToCopy.getDestiny();
+		this.origin = dataToCopy.getOrigin();
 	}
 
 	public Transaction validateCreation() throws TransactionException, AccountBankException {
-		
+
 		final TransactionType type = this.transactionType;
 		this.validateObligatoryFields(type);
-		
+
 		this.setTransactionDate(ZonedDateTime.now());
-		
+
 		String accountObligatory = "";
-		
+
 		final boolean destinyAccountExist = this.destiny != null;
 		final boolean originAccountExist = this.origin != null;
-		
+
 		if(TransactionType.TRANSFERENCIA.equals(type) && destinyAccountExist && originAccountExist) {
-			
+
 			if(this.destiny.getId().equals(this.origin.getId())) {
 				throw new TransactionException(new StringBuilder()
 						.append("Una transaccion de tipo: ").append(type)
@@ -64,7 +63,7 @@ public class Transaction {
 						.append(" y numero: ").append(this.origin.getNumber())
 						.toString());
 			}
-			
+
 			this.origin.substractAmountToBalanceAccount(this.amount);
 			this.destiny.addAmountToBalanceAccount(this.amount);
 			return this;
@@ -74,7 +73,7 @@ public class Transaction {
 		}
 
 		if(TransactionType.CONSIGNACION.equals(type) && destinyAccountExist) {
-			
+
 			if(originAccountExist) {
 				log.warn("validateCreation :: una {} no puede tener una cuenta de origen, borrando cuenta: {}",
 						type, this.origin);				
@@ -86,9 +85,9 @@ public class Transaction {
 		else {
 			accountObligatory = "origen";			
 		}
-		
+
 		if(TransactionType.RETIRO.equals(type) && originAccountExist) {
-			
+
 			if(destinyAccountExist) {
 				log.warn("validateCreation :: un {} no puede tener una cuenta de destino, borrando cuenta: {}",
 						type, this.destiny);				
@@ -100,71 +99,71 @@ public class Transaction {
 		else {
 			accountObligatory = "destino";			
 		}
-		
+
 		log.error("validateCreation :: type: {}, accountObligatory: {}, destinyAccountExist: {}, originAccountExist: {}",
 				type, accountObligatory, destinyAccountExist, originAccountExist);
 		throw new TransactionException("Las transaciones de tipo: " + type.toString() + " Deben contar con la cuenta de " + accountObligatory);
-		
+
 	}
-	
+
 	private void validateObligatoryFields(final TransactionType type) throws TransactionException {
 		if(type == null) {
 			throw new TransactionException("El tipo de transacción es obligatoria");
 		}
-		
+
 		if(this.amount == null || BigDecimal.ZERO.compareTo(this.amount) >= 0) {
 			throw new TransactionException("El monto de la transacción es obligatorio y debe ser mayor o igual a Zero");
 		}
 	}
 
-    public UUID getId() {
-        return id;
-    }
+	public UUID getId() {
+		return id;
+	}
 
-    public void setId(UUID id) {
-        this.id = id;
-    }
+	public void setId(UUID id) {
+		this.id = id;
+	}
 
-    public TransactionType getTransactionType() {
-        return transactionType;
-    }
+	public TransactionType getTransactionType() {
+		return transactionType;
+	}
 
-    public void setTransactionType(TransactionType transactionType) {
-        this.transactionType = transactionType;
-    }
+	public void setTransactionType(TransactionType transactionType) {
+		this.transactionType = transactionType;
+	}
 
-    public ZonedDateTime getTransactionDate() {
-        return transactionDate;
-    }
+	public ZonedDateTime getTransactionDate() {
+		return transactionDate;
+	}
 
-    public void setTransactionDate(ZonedDateTime transactionDate) {
-        this.transactionDate = transactionDate;
-    }
+	public void setTransactionDate(ZonedDateTime transactionDate) {
+		this.transactionDate = transactionDate;
+	}
 
-    public BigDecimal getAmount() {
-        return amount;
-    }
+	public BigDecimal getAmount() {
+		return amount;
+	}
 
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
+	}
 
-    public AccountBank getOrigin() {
-        return origin;
-    }
+	public AccountBank getOrigin() {
+		return origin;
+	}
 
-    public void setOrigin(AccountBank origin) {
-        this.origin = origin;
-    }
-    
-    public AccountBank getDestiny() {
+	public void setOrigin(AccountBank origin) {
+		this.origin = origin;
+	}
+
+	public AccountBank getDestiny() {
 		return destiny;
 	}
 
 	public void setDestiny(AccountBank destiny) {
 		this.destiny = destiny;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(amount, destiny, id, origin, transactionDate, transactionType);
@@ -185,16 +184,16 @@ public class Transaction {
 	}
 
 	// prettier-ignore
-    @Override
-    public String toString() {
-        return "Transaction{" +
-            "id='" + getId() + "'" +
-            ", transactionType='" + getTransactionType() + "'" +
-            ", transactionDate='" + getTransactionDate() + "'" +
-            ", amount=" + getAmount() +
-            ", origin=" + getOrigin() +
-            ", destiny=" + getDestiny() +
-            "}";
-    }
-    
+	@Override
+	public String toString() {
+		return "Transaction{" +
+				"id='" + getId() + "'" +
+				", transactionType='" + getTransactionType() + "'" +
+				", transactionDate='" + getTransactionDate() + "'" +
+				", amount=" + getAmount() +
+				", origin=" + getOrigin() +
+				", destiny=" + getDestiny() +
+				"}";
+	}
+
 }

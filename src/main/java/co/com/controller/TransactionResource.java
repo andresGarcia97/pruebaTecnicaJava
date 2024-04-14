@@ -30,7 +30,7 @@ public class TransactionResource {
 
 	@PostMapping("")
 	public ResponseEntity<?> createTransaction(@RequestBody(required = true) final TransactionDTO transaction) {
-		log.debug("REST request to save transaction: {}", transaction);
+		log.info("REST request to save transaction: {}", transaction);
 		if (transaction.getId() != null) {
 			throw new IllegalArgumentException("A new transaction cannot already have an ID");
 		}
@@ -47,7 +47,6 @@ public class TransactionResource {
 
 	@GetMapping("")
 	public List<TransactionDTO> getAllTransactions() {
-		log.debug("REST request to get all transactions");
 		return transactionService.findAll();
 	}
 

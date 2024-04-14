@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import co.com.entities.enumeration.IdentificationType;
 
 public class Client {
-	
+
 	private static final Logger log = LoggerFactory.getLogger(Client.class);
 
 	private static final int MIN_YEARS = 18;
@@ -36,7 +36,7 @@ public class Client {
 	private ZonedDateTime creationDate;
 
 	private ZonedDateTime lastModificationDate;
-	
+
 	public Client() {
 		super();
 	}
@@ -46,7 +46,7 @@ public class Client {
 		this.validateBornDate();
 		this.validateNameAndLastName();
 		this.validateEmail();
-		
+
 		if(this.lastModificationDate != null) {
 			throw new ClientException("Un cliente nuevo, No puede tener fecha de modificación");
 		}
@@ -60,12 +60,12 @@ public class Client {
 		this.validateBornDate();
 		this.validateNameAndLastName();
 		this.validateEmail();
-		
+
 		if(this.getCreationDate().toInstant().compareTo(client.getCreationDate().toInstant()) != 0) {
 			log.error("validateUpdate :: dateCreationPrevious: {}, dateCreationUpdate: {}", client.getCreationDate(), this.getCreationDate());
 			throw new ClientException("No se puede cambiar la fecha de creacion");
 		}
-		
+
 		this.setLastModificationDate(ZonedDateTime.now());
 		return this;
 	}

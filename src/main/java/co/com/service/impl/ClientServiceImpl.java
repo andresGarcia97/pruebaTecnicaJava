@@ -50,7 +50,7 @@ public class ClientServiceImpl implements ClientService {
 	public ClientDTO update(final ClientDTO client) throws ClientException {
 
 		final ClientEntity clientFound = clientRepository.findById(client.getId())
-				.orElseThrow(() -> new ClientException("No existe un cliente con el ID proporcionado"));
+				.orElseThrow(() -> new ClientException(ClientException.CLIENT_NOT_EXIST));
 
 		final Client toUpdate = domainMapper.toDomain(client).validateUpdate(entityMapper.toDomain(clientFound));        
 		final ClientEntity updated = clientRepository.save(entityMapper.toEntity(toUpdate));
@@ -89,6 +89,6 @@ public class ClientServiceImpl implements ClientService {
 	public ClientDTO findById(Long clientId) throws ClientException {
 		return clientRepository.findById(clientId)
 				.map(queriesMapper::toDto)
-				.orElseThrow(() -> new ClientException("No existe un cliente con el ID proporcionado"));
+				.orElseThrow(() -> new ClientException(ClientException.CLIENT_NOT_EXIST));
 	}
 }
