@@ -1,0 +1,997 @@
+{
+	"info": {
+		"_postman_id": "a277f2c2-c10e-4b15-85f6-d60d2eb216c8",
+		"name": "Prueba Tecnica java V1.0",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5709638"
+	},
+	"item": [
+		{
+			"name": "clientes",
+			"item": [
+				{
+					"name": "obtener todos los clientes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/api/clients",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"clients"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "obtener todos los clientes",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{HOST}}/api/clients",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"clients"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 14 Apr 2024 06:04:58 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 51,\n        \"identificationType\": \"CEDULA\",\n        \"identification\": \"34444\",\n        \"name\": \"dos\",\n        \"lastName\": \"las\",\n        \"email\": \"correo@gmail.com\",\n        \"bornDate\": \"2005-01-01\",\n        \"creationDate\": \"2024-04-13T04:13:30Z\",\n        \"lastModificationDate\": \"2024-04-13T04:20:08Z\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "crear",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"identificationType\": \"PASAPORTE\",\n    \"identification\": \"34463HH\",\n    \"name\": \"andrew\",\n    \"lastName\": \"carnegie\",\n    \"email\": \"correo@gmail.com\",\n    \"bornDate\": \"2005-01-01\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/clients",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"clients"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "creacion fallida, falta tipo de identificacion",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \n    \"identification\": \"34\",\n    \"name\": \"dos\",\n    \"lastName\": \"las\",\n    \"email\": \"correo@gmail.com\",\n    \"bornDate\": \"2005-01-01\",\n    \"creationDate\": \"2024-04-12T20:53:07Z\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}/api/clients",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"clients"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain;charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "108"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 14 Apr 2024 06:15:44 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "El tipo de identificación es obligatoria, y solo puede ser de tipo: [CEDULA, PASAPORTE, CEDULA_EXTRANJERIA]"
+						},
+						{
+							"name": "creacion exitosa",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"identificationType\": \"PASAPORTE\",\n    \"identification\": \"34463HH\",\n    \"name\": \"andrew\",\n    \"lastName\": \"carnegie\",\n    \"email\": \"correo@gmail.com\",\n    \"bornDate\": \"2005-01-01\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}/api/clients",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"clients"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 14 Apr 2024 06:23:46 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 141,\n    \"identificationType\": \"PASAPORTE\",\n    \"identification\": \"34463HH\",\n    \"name\": \"andrew\",\n    \"lastName\": \"carnegie\",\n    \"email\": \"correo@gmail.com\",\n    \"bornDate\": \"2005-01-01\",\n    \"creationDate\": \"2024-04-14T06:23:46Z\",\n    \"lastModificationDate\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "actualizar",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 223,\n    \"identificationType\": \"CEDULA\",\n    \"identification\": \"12434\",\n    \"name\": \"dos\",\n    \"lastName\": \"las\",\n    \"email\": \"correo@gmail.com\",\n    \"bornDate\": \"2005-01-01\",\n    \"creationDate\": \"2024-04-12T21:04:19Z\",\n    \"lastModificationDate\": \"2024-04-12T20:54:18Z\",\n    \"accounts\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/clients",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"clients"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "actualizacion fallida, no existe el cliente",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": 223,\n    \"identificationType\": \"CEDULA\",\n    \"identification\": \"12434\",\n    \"name\": \"dos\",\n    \"lastName\": \"las\",\n    \"email\": \"correo@gmail.com\",\n    \"bornDate\": \"2005-01-01\",\n    \"creationDate\": \"2024-04-12T21:04:19Z\",\n    \"lastModificationDate\": \"2024-04-12T20:54:18Z\",\n    \"accounts\": []\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}/api/clients",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"clients"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain;charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "44"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 14 Apr 2024 06:24:30 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "No existe un cliente con el ID proporcionado"
+						},
+						{
+							"name": "actualizacion exitosa",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": 51,\n    \"identificationType\": \"CEDULA\",\n    \"identification\": \"34444\",\n    \"name\": \"dos\",\n    \"lastName\": \"las\",\n    \"email\": \"correo@gmail.com\",\n    \"bornDate\": \"2005-01-01\",\n    \"creationDate\": \"2024-04-13T04:13:30Z\",\n    \"lastModificationDate\": \"2024-04-13T04:20:08Z\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}/api/clients",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"clients"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 14 Apr 2024 06:25:46 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 51,\n    \"identificationType\": \"CEDULA\",\n    \"identification\": \"34444\",\n    \"name\": \"dos\",\n    \"lastName\": \"las\",\n    \"email\": \"correo@gmail.com\",\n    \"bornDate\": \"2005-01-01\",\n    \"creationDate\": \"2024-04-13T04:13:30Z\",\n    \"lastModificationDate\": \"2024-04-14T06:25:46.8074921Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "eliminar",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/api/clients/51",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"clients",
+								"51"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "eliminar exitoso",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{HOST}}/api/clients/52",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"clients",
+										"52"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sun, 14 Apr 2024 06:26:47 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "eliminar fallido, el cliente tiene cuentas asociadas",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{HOST}}/api/clients/51",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"clients",
+										"51"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain;charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "130"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 14 Apr 2024 06:27:17 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "No se puede eliminar este cliente, ya que esta asociado a las siguientes cuentas: [5353520904, 3347906923, 3342775750, 3361487659]"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "cuentas",
+			"item": [
+				{
+					"name": "obtener todas las cuentas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/api/account-banks",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"account-banks"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "obtener todas las cuentas",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{HOST}}/api/account-banks",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"account-banks"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 14 Apr 2024 06:28:40 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 132,\n        \"accountType\": \"CUENTA_CORRIENTE\",\n        \"number\": 5353520904,\n        \"state\": \"INACTIVA\",\n        \"balance\": 12,\n        \"exentGMF\": false,\n        \"creationDate\": \"2024-04-13T06:10:04Z\",\n        \"lastModificationDate\": null,\n        \"client\": {\n            \"id\": 51,\n            \"identificationType\": \"CEDULA\",\n            \"identification\": \"34444\",\n            \"name\": \"dos\",\n            \"lastName\": \"las\",\n            \"email\": \"correo@gmail.com\",\n            \"bornDate\": \"2005-01-01\",\n            \"creationDate\": \"2024-04-13T04:13:30Z\",\n            \"lastModificationDate\": \"2024-04-14T06:25:46.807492Z\"\n        }\n    },\n    {\n        \"id\": 121,\n        \"accountType\": \"CUENTA_AHORROS\",\n        \"number\": 3347906923,\n        \"state\": \"CANCELADA\",\n        \"balance\": 0,\n        \"exentGMF\": false,\n        \"creationDate\": \"2024-04-13T05:47:38Z\",\n        \"lastModificationDate\": \"2024-04-13T15:34:39Z\",\n        \"client\": {\n            \"id\": 51,\n            \"identificationType\": \"CEDULA\",\n            \"identification\": \"34444\",\n            \"name\": \"dos\",\n            \"lastName\": \"las\",\n            \"email\": \"correo@gmail.com\",\n            \"bornDate\": \"2005-01-01\",\n            \"creationDate\": \"2024-04-13T04:13:30Z\",\n            \"lastModificationDate\": \"2024-04-14T06:25:46.807492Z\"\n        }\n    },\n    {\n        \"id\": 111,\n        \"accountType\": \"CUENTA_AHORROS\",\n        \"number\": 3342775750,\n        \"state\": \"ACTIVA\",\n        \"balance\": 23,\n        \"exentGMF\": false,\n        \"creationDate\": \"2024-04-13T05:22:14Z\",\n        \"lastModificationDate\": null,\n        \"client\": {\n            \"id\": 51,\n            \"identificationType\": \"CEDULA\",\n            \"identification\": \"34444\",\n            \"name\": \"dos\",\n            \"lastName\": \"las\",\n            \"email\": \"correo@gmail.com\",\n            \"bornDate\": \"2005-01-01\",\n            \"creationDate\": \"2024-04-13T04:13:30Z\",\n            \"lastModificationDate\": \"2024-04-14T06:25:46.807492Z\"\n        }\n    },\n    {\n        \"id\": 131,\n        \"accountType\": \"CUENTA_AHORROS\",\n        \"number\": 3361487659,\n        \"state\": \"ACTIVA\",\n        \"balance\": 4,\n        \"exentGMF\": false,\n        \"creationDate\": \"2024-04-13T06:06:58Z\",\n        \"lastModificationDate\": null,\n        \"client\": {\n            \"id\": 51,\n            \"identificationType\": \"CEDULA\",\n            \"identification\": \"34444\",\n            \"name\": \"dos\",\n            \"lastName\": \"las\",\n            \"email\": \"correo@gmail.com\",\n            \"bornDate\": \"2005-01-01\",\n            \"creationDate\": \"2024-04-13T04:13:30Z\",\n            \"lastModificationDate\": \"2024-04-14T06:25:46.807492Z\"\n        }\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "crear",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"client\": {\n        \"id\": 141\n    },\n    \"accountType\": \"CUENTA_CORRIENTE\",\n    \"state\": \"INACTIVA\",\n    \"balance\": 12,\n    \"exentGMF\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/account-banks",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"account-banks"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "creacion fallida, no existe el cliente a asociar",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"client\": {\n        \"id\": 52\n    },\n    \"accountType\": \"CUENTA_CORRIENTE\",\n    \"state\": \"INACTIVA\",\n    \"balance\": 12,\n    \"exentGMF\": false\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}/api/account-banks",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"account-banks"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain;charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "44"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 14 Apr 2024 06:29:05 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "No existe un cliente con el ID proporcionado"
+						},
+						{
+							"name": "creacion exitosa",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"client\": {\n        \"id\": 141\n    },\n    \"accountType\": \"CUENTA_CORRIENTE\",\n    \"state\": \"INACTIVA\",\n    \"balance\": 12,\n    \"exentGMF\": false\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}/api/account-banks",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"account-banks"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 14 Apr 2024 06:30:03 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 151,\n    \"accountType\": \"CUENTA_CORRIENTE\",\n    \"number\": 5370448732,\n    \"state\": \"INACTIVA\",\n    \"balance\": 12,\n    \"exentGMF\": false,\n    \"creationDate\": \"2024-04-14T06:30:03Z\",\n    \"lastModificationDate\": null,\n    \"client\": {\n        \"id\": 141,\n        \"identificationType\": \"PASAPORTE\",\n        \"identification\": \"34463HH\",\n        \"name\": \"andrew\",\n        \"lastName\": \"carnegie\",\n        \"email\": \"correo@gmail.com\",\n        \"bornDate\": \"2005-01-01\",\n        \"creationDate\": \"2024-04-14T06:23:46Z\",\n        \"lastModificationDate\": null\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "actualizar",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 151,\n    \"state\": \"CANCELADA\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/account-banks",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"account-banks"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "actualizacion fallida, todavia tiene saldo",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": 151,\n    \"state\": \"CANCELADA\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}/api/account-banks",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"account-banks"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain;charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "69"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 14 Apr 2024 06:30:42 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "Solo se pueden cancelar las cuentas con saldo 0, saldo actual: $12.00"
+						},
+						{
+							"name": "actualizacion exitosa",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": 151,\n    \"state\": \"CANCELADA\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}/api/account-banks",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"account-banks"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 14 Apr 2024 06:35:01 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 151,\n    \"accountType\": \"CUENTA_CORRIENTE\",\n    \"number\": 5370448732,\n    \"state\": \"CANCELADA\",\n    \"balance\": 0,\n    \"exentGMF\": false,\n    \"creationDate\": \"2024-04-14T06:30:03Z\",\n    \"lastModificationDate\": \"2024-04-14T06:35:00.9968783Z\",\n    \"client\": {\n        \"id\": 141,\n        \"identificationType\": \"PASAPORTE\",\n        \"identification\": \"34463HH\",\n        \"name\": \"andrew\",\n        \"lastName\": \"carnegie\",\n        \"email\": \"correo@gmail.com\",\n        \"bornDate\": \"2005-01-01\",\n        \"creationDate\": \"2024-04-14T06:23:46Z\",\n        \"lastModificationDate\": null\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "transacciones",
+			"item": [
+				{
+					"name": "obtener todas las transacciones",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/api/transactions",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"transactions"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "obtener todas las transacciones",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{HOST}}/api/transactions",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"transactions"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 14 Apr 2024 06:32:03 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": \"15aa39f4-90fc-45ec-9cc6-62c418526f4e\",\n        \"transactionType\": \"CONSIGNACION\",\n        \"transactionDate\": \"2024-04-13T17:48:17.016212Z\",\n        \"amount\": 0.1,\n        \"destiny\": {\n            \"id\": 131,\n            \"accountType\": \"CUENTA_AHORROS\",\n            \"number\": 3361487659,\n            \"state\": \"ACTIVA\",\n            \"balance\": 4,\n            \"exentGMF\": false,\n            \"creationDate\": \"2024-04-13T06:06:58Z\",\n            \"lastModificationDate\": null,\n            \"client\": {\n                \"id\": 51,\n                \"identificationType\": \"CEDULA\",\n                \"identification\": \"34444\",\n                \"name\": \"dos\",\n                \"lastName\": \"las\",\n                \"email\": \"correo@gmail.com\",\n                \"bornDate\": \"2005-01-01\",\n                \"creationDate\": \"2024-04-13T04:13:30Z\",\n                \"lastModificationDate\": \"2024-04-14T06:25:46.807492Z\"\n            }\n        }\n    },\n    {\n        \"id\": \"14cce466-55c6-4e2d-9484-3805c045642c\",\n        \"transactionType\": \"CONSIGNACION\",\n        \"transactionDate\": \"2024-04-13T18:22:43.594547Z\",\n        \"amount\": 0.1,\n        \"origin\": {\n            \"id\": 111,\n            \"accountType\": \"CUENTA_AHORROS\",\n            \"number\": 3342775750,\n            \"state\": \"ACTIVA\",\n            \"balance\": 23,\n            \"exentGMF\": false,\n            \"creationDate\": \"2024-04-13T05:22:14Z\",\n            \"lastModificationDate\": null,\n            \"client\": {\n                \"id\": 51,\n                \"identificationType\": \"CEDULA\",\n                \"identification\": \"34444\",\n                \"name\": \"dos\",\n                \"lastName\": \"las\",\n                \"email\": \"correo@gmail.com\",\n                \"bornDate\": \"2005-01-01\",\n                \"creationDate\": \"2024-04-13T04:13:30Z\",\n                \"lastModificationDate\": \"2024-04-14T06:25:46.807492Z\"\n            }\n        },\n        \"destiny\": {\n            \"id\": 131,\n            \"accountType\": \"CUENTA_AHORROS\",\n            \"number\": 3361487659,\n            \"state\": \"ACTIVA\",\n            \"balance\": 4,\n            \"exentGMF\": false,\n            \"creationDate\": \"2024-04-13T06:06:58Z\",\n            \"lastModificationDate\": null,\n            \"client\": {\n                \"id\": 51,\n                \"identificationType\": \"CEDULA\",\n                \"identification\": \"34444\",\n                \"name\": \"dos\",\n                \"lastName\": \"las\",\n                \"email\": \"correo@gmail.com\",\n                \"bornDate\": \"2005-01-01\",\n                \"creationDate\": \"2024-04-13T04:13:30Z\",\n                \"lastModificationDate\": \"2024-04-14T06:25:46.807492Z\"\n            }\n        }\n    },\n    {\n        \"id\": \"867c0315-a1d3-48c2-9738-3ee1a53ca446\",\n        \"transactionType\": \"CONSIGNACION\",\n        \"transactionDate\": \"2024-04-13T18:23:12.735378Z\",\n        \"amount\": 0.1,\n        \"destiny\": {\n            \"id\": 131,\n            \"accountType\": \"CUENTA_AHORROS\",\n            \"number\": 3361487659,\n            \"state\": \"ACTIVA\",\n            \"balance\": 4,\n            \"exentGMF\": false,\n            \"creationDate\": \"2024-04-13T06:06:58Z\",\n            \"lastModificationDate\": null,\n            \"client\": {\n                \"id\": 51,\n                \"identificationType\": \"CEDULA\",\n                \"identification\": \"34444\",\n                \"name\": \"dos\",\n                \"lastName\": \"las\",\n                \"email\": \"correo@gmail.com\",\n                \"bornDate\": \"2005-01-01\",\n                \"creationDate\": \"2024-04-13T04:13:30Z\",\n                \"lastModificationDate\": \"2024-04-14T06:25:46.807492Z\"\n            }\n        }\n    },\n    {\n        \"id\": \"525e8587-ed94-48dd-be25-60c0bf1fcef0\",\n        \"transactionType\": \"RETIRO\",\n        \"transactionDate\": \"2024-04-13T18:28:58.678581Z\",\n        \"amount\": 0.1,\n        \"origin\": {\n            \"id\": 111,\n            \"accountType\": \"CUENTA_AHORROS\",\n            \"number\": 3342775750,\n            \"state\": \"ACTIVA\",\n            \"balance\": 23,\n            \"exentGMF\": false,\n            \"creationDate\": \"2024-04-13T05:22:14Z\",\n            \"lastModificationDate\": null,\n            \"client\": {\n                \"id\": 51,\n                \"identificationType\": \"CEDULA\",\n                \"identification\": \"34444\",\n                \"name\": \"dos\",\n                \"lastName\": \"las\",\n                \"email\": \"correo@gmail.com\",\n                \"bornDate\": \"2005-01-01\",\n                \"creationDate\": \"2024-04-13T04:13:30Z\",\n                \"lastModificationDate\": \"2024-04-14T06:25:46.807492Z\"\n            }\n        }\n    },\n    {\n        \"id\": \"1733dc0b-baed-4d6e-a00d-393b234fed87\",\n        \"transactionType\": \"CONSIGNACION\",\n        \"transactionDate\": \"2024-04-13T19:38:54.11179Z\",\n        \"amount\": 100,\n        \"destiny\": {\n            \"id\": 111,\n            \"accountType\": \"CUENTA_AHORROS\",\n            \"number\": 3342775750,\n            \"state\": \"ACTIVA\",\n            \"balance\": 23,\n            \"exentGMF\": false,\n            \"creationDate\": \"2024-04-13T05:22:14Z\",\n            \"lastModificationDate\": null,\n            \"client\": {\n                \"id\": 51,\n                \"identificationType\": \"CEDULA\",\n                \"identification\": \"34444\",\n                \"name\": \"dos\",\n                \"lastName\": \"las\",\n                \"email\": \"correo@gmail.com\",\n                \"bornDate\": \"2005-01-01\",\n                \"creationDate\": \"2024-04-13T04:13:30Z\",\n                \"lastModificationDate\": \"2024-04-14T06:25:46.807492Z\"\n            }\n        }\n    },\n    {\n        \"id\": \"385f0a83-ef46-4085-8ed3-d47298f6dd32\",\n        \"transactionType\": \"RETIRO\",\n        \"transactionDate\": \"2024-04-13T19:42:24.68942Z\",\n        \"amount\": 100,\n        \"origin\": {\n            \"id\": 111,\n            \"accountType\": \"CUENTA_AHORROS\",\n            \"number\": 3342775750,\n            \"state\": \"ACTIVA\",\n            \"balance\": 23,\n            \"exentGMF\": false,\n            \"creationDate\": \"2024-04-13T05:22:14Z\",\n            \"lastModificationDate\": null,\n            \"client\": {\n                \"id\": 51,\n                \"identificationType\": \"CEDULA\",\n                \"identification\": \"34444\",\n                \"name\": \"dos\",\n                \"lastName\": \"las\",\n                \"email\": \"correo@gmail.com\",\n                \"bornDate\": \"2005-01-01\",\n                \"creationDate\": \"2024-04-13T04:13:30Z\",\n                \"lastModificationDate\": \"2024-04-14T06:25:46.807492Z\"\n            }\n        }\n    },\n    {\n        \"id\": \"0c1d529b-b4ea-4e29-b091-c6d54a2a1397\",\n        \"transactionType\": \"CONSIGNACION\",\n        \"transactionDate\": \"2024-04-13T20:00:46.219387Z\",\n        \"amount\": 10,\n        \"destiny\": {\n            \"id\": 111,\n            \"accountType\": \"CUENTA_AHORROS\",\n            \"number\": 3342775750,\n            \"state\": \"ACTIVA\",\n            \"balance\": 23,\n            \"exentGMF\": false,\n            \"creationDate\": \"2024-04-13T05:22:14Z\",\n            \"lastModificationDate\": null,\n            \"client\": {\n                \"id\": 51,\n                \"identificationType\": \"CEDULA\",\n                \"identification\": \"34444\",\n                \"name\": \"dos\",\n                \"lastName\": \"las\",\n                \"email\": \"correo@gmail.com\",\n                \"bornDate\": \"2005-01-01\",\n                \"creationDate\": \"2024-04-13T04:13:30Z\",\n                \"lastModificationDate\": \"2024-04-14T06:25:46.807492Z\"\n            }\n        }\n    },\n    {\n        \"id\": \"a3824d01-70da-40f0-abc8-c04e3d66731d\",\n        \"transactionType\": \"CONSIGNACION\",\n        \"transactionDate\": \"2024-04-13T20:01:00.129088Z\",\n        \"amount\": 5,\n        \"destiny\": {\n            \"id\": 111,\n            \"accountType\": \"CUENTA_AHORROS\",\n            \"number\": 3342775750,\n            \"state\": \"ACTIVA\",\n            \"balance\": 23,\n            \"exentGMF\": false,\n            \"creationDate\": \"2024-04-13T05:22:14Z\",\n            \"lastModificationDate\": null,\n            \"client\": {\n                \"id\": 51,\n                \"identificationType\": \"CEDULA\",\n                \"identification\": \"34444\",\n                \"name\": \"dos\",\n                \"lastName\": \"las\",\n                \"email\": \"correo@gmail.com\",\n                \"bornDate\": \"2005-01-01\",\n                \"creationDate\": \"2024-04-13T04:13:30Z\",\n                \"lastModificationDate\": \"2024-04-14T06:25:46.807492Z\"\n            }\n        }\n    },\n    {\n        \"id\": \"0315011f-16ba-44b4-a772-1d6d5254cedd\",\n        \"transactionType\": \"TRANSFERENCIA\",\n        \"transactionDate\": \"2024-04-13T20:04:55.910794Z\",\n        \"amount\": 6,\n        \"origin\": {\n            \"id\": 111,\n            \"accountType\": \"CUENTA_AHORROS\",\n            \"number\": 3342775750,\n            \"state\": \"ACTIVA\",\n            \"balance\": 23,\n            \"exentGMF\": false,\n            \"creationDate\": \"2024-04-13T05:22:14Z\",\n            \"lastModificationDate\": null,\n            \"client\": {\n                \"id\": 51,\n                \"identificationType\": \"CEDULA\",\n                \"identification\": \"34444\",\n                \"name\": \"dos\",\n                \"lastName\": \"las\",\n                \"email\": \"correo@gmail.com\",\n                \"bornDate\": \"2005-01-01\",\n                \"creationDate\": \"2024-04-13T04:13:30Z\",\n                \"lastModificationDate\": \"2024-04-14T06:25:46.807492Z\"\n            }\n        },\n        \"destiny\": {\n            \"id\": 131,\n            \"accountType\": \"CUENTA_AHORROS\",\n            \"number\": 3361487659,\n            \"state\": \"ACTIVA\",\n            \"balance\": 4,\n            \"exentGMF\": false,\n            \"creationDate\": \"2024-04-13T06:06:58Z\",\n            \"lastModificationDate\": null,\n            \"client\": {\n                \"id\": 51,\n                \"identificationType\": \"CEDULA\",\n                \"identification\": \"34444\",\n                \"name\": \"dos\",\n                \"lastName\": \"las\",\n                \"email\": \"correo@gmail.com\",\n                \"bornDate\": \"2005-01-01\",\n                \"creationDate\": \"2024-04-13T04:13:30Z\",\n                \"lastModificationDate\": \"2024-04-14T06:25:46.807492Z\"\n            }\n        }\n    },\n    {\n        \"id\": \"51ae48ed-2ec3-459d-a71d-ddf48b0c6e4e\",\n        \"transactionType\": \"TRANSFERENCIA\",\n        \"transactionDate\": \"2024-04-13T20:22:59.965123Z\",\n        \"amount\": 6,\n        \"origin\": {\n            \"id\": 111,\n            \"accountType\": \"CUENTA_AHORROS\",\n            \"number\": 3342775750,\n            \"state\": \"ACTIVA\",\n            \"balance\": 23,\n            \"exentGMF\": false,\n            \"creationDate\": \"2024-04-13T05:22:14Z\",\n            \"lastModificationDate\": null,\n            \"client\": {\n                \"id\": 51,\n                \"identificationType\": \"CEDULA\",\n                \"identification\": \"34444\",\n                \"name\": \"dos\",\n                \"lastName\": \"las\",\n                \"email\": \"correo@gmail.com\",\n                \"bornDate\": \"2005-01-01\",\n                \"creationDate\": \"2024-04-13T04:13:30Z\",\n                \"lastModificationDate\": \"2024-04-14T06:25:46.807492Z\"\n            }\n        },\n        \"destiny\": {\n            \"id\": 131,\n            \"accountType\": \"CUENTA_AHORROS\",\n            \"number\": 3361487659,\n            \"state\": \"ACTIVA\",\n            \"balance\": 4,\n            \"exentGMF\": false,\n            \"creationDate\": \"2024-04-13T06:06:58Z\",\n            \"lastModificationDate\": null,\n            \"client\": {\n                \"id\": 51,\n                \"identificationType\": \"CEDULA\",\n                \"identification\": \"34444\",\n                \"name\": \"dos\",\n                \"lastName\": \"las\",\n                \"email\": \"correo@gmail.com\",\n                \"bornDate\": \"2005-01-01\",\n                \"creationDate\": \"2024-04-13T04:13:30Z\",\n                \"lastModificationDate\": \"2024-04-14T06:25:46.807492Z\"\n            }\n        }\n    },\n    {\n        \"id\": \"7454fc7d-8dfa-468a-8bbb-da160a1a8c2e\",\n        \"transactionType\": \"CONSIGNACION\",\n        \"transactionDate\": \"2024-04-13T20:45:59.634955Z\",\n        \"amount\": 6,\n        \"destiny\": {\n            \"id\": 131,\n            \"accountType\": \"CUENTA_AHORROS\",\n            \"number\": 3361487659,\n            \"state\": \"ACTIVA\",\n            \"balance\": 4,\n            \"exentGMF\": false,\n            \"creationDate\": \"2024-04-13T06:06:58Z\",\n            \"lastModificationDate\": null,\n            \"client\": {\n                \"id\": 51,\n                \"identificationType\": \"CEDULA\",\n                \"identification\": \"34444\",\n                \"name\": \"dos\",\n                \"lastName\": \"las\",\n                \"email\": \"correo@gmail.com\",\n                \"bornDate\": \"2005-01-01\",\n                \"creationDate\": \"2024-04-13T04:13:30Z\",\n                \"lastModificationDate\": \"2024-04-14T06:25:46.807492Z\"\n            }\n        }\n    },\n    {\n        \"id\": \"46503ecf-b920-48a6-b453-265c5cbb8613\",\n        \"transactionType\": \"RETIRO\",\n        \"transactionDate\": \"2024-04-13T20:45:59.634955Z\",\n        \"amount\": 6,\n        \"origin\": {\n            \"id\": 111,\n            \"accountType\": \"CUENTA_AHORROS\",\n            \"number\": 3342775750,\n            \"state\": \"ACTIVA\",\n            \"balance\": 23,\n            \"exentGMF\": false,\n            \"creationDate\": \"2024-04-13T05:22:14Z\",\n            \"lastModificationDate\": null,\n            \"client\": {\n                \"id\": 51,\n                \"identificationType\": \"CEDULA\",\n                \"identification\": \"34444\",\n                \"name\": \"dos\",\n                \"lastName\": \"las\",\n                \"email\": \"correo@gmail.com\",\n                \"bornDate\": \"2005-01-01\",\n                \"creationDate\": \"2024-04-13T04:13:30Z\",\n                \"lastModificationDate\": \"2024-04-14T06:25:46.807492Z\"\n            }\n        }\n    },\n    {\n        \"id\": \"ab49abc0-285a-4a46-85eb-6f476b49954e\",\n        \"transactionType\": \"TRANSFERENCIA\",\n        \"transactionDate\": \"2024-04-13T20:45:59.634955Z\",\n        \"amount\": 6,\n        \"origin\": {\n            \"id\": 111,\n            \"accountType\": \"CUENTA_AHORROS\",\n            \"number\": 3342775750,\n            \"state\": \"ACTIVA\",\n            \"balance\": 23,\n            \"exentGMF\": false,\n            \"creationDate\": \"2024-04-13T05:22:14Z\",\n            \"lastModificationDate\": null,\n            \"client\": {\n                \"id\": 51,\n                \"identificationType\": \"CEDULA\",\n                \"identification\": \"34444\",\n                \"name\": \"dos\",\n                \"lastName\": \"las\",\n                \"email\": \"correo@gmail.com\",\n                \"bornDate\": \"2005-01-01\",\n                \"creationDate\": \"2024-04-13T04:13:30Z\",\n                \"lastModificationDate\": \"2024-04-14T06:25:46.807492Z\"\n            }\n        },\n        \"destiny\": {\n            \"id\": 131,\n            \"accountType\": \"CUENTA_AHORROS\",\n            \"number\": 3361487659,\n            \"state\": \"ACTIVA\",\n            \"balance\": 4,\n            \"exentGMF\": false,\n            \"creationDate\": \"2024-04-13T06:06:58Z\",\n            \"lastModificationDate\": null,\n            \"client\": {\n                \"id\": 51,\n                \"identificationType\": \"CEDULA\",\n                \"identification\": \"34444\",\n                \"name\": \"dos\",\n                \"lastName\": \"las\",\n                \"email\": \"correo@gmail.com\",\n                \"bornDate\": \"2005-01-01\",\n                \"creationDate\": \"2024-04-13T04:13:30Z\",\n                \"lastModificationDate\": \"2024-04-14T06:25:46.807492Z\"\n            }\n        }\n    },\n    {\n        \"id\": \"4011690e-ceb3-41ab-ace4-0f898e7b0656\",\n        \"transactionType\": \"CONSIGNACION\",\n        \"transactionDate\": \"2024-04-13T20:58:08.330833Z\",\n        \"amount\": 20,\n        \"origin\": {\n            \"id\": 131,\n            \"accountType\": \"CUENTA_AHORROS\",\n            \"number\": 3361487659,\n            \"state\": \"ACTIVA\",\n            \"balance\": 4,\n            \"exentGMF\": false,\n            \"creationDate\": \"2024-04-13T06:06:58Z\",\n            \"lastModificationDate\": null,\n            \"client\": {\n                \"id\": 51,\n                \"identificationType\": \"CEDULA\",\n                \"identification\": \"34444\",\n                \"name\": \"dos\",\n                \"lastName\": \"las\",\n                \"email\": \"correo@gmail.com\",\n                \"bornDate\": \"2005-01-01\",\n                \"creationDate\": \"2024-04-13T04:13:30Z\",\n                \"lastModificationDate\": \"2024-04-14T06:25:46.807492Z\"\n            }\n        },\n        \"destiny\": {\n            \"id\": 111,\n            \"accountType\": \"CUENTA_AHORROS\",\n            \"number\": 3342775750,\n            \"state\": \"ACTIVA\",\n            \"balance\": 23,\n            \"exentGMF\": false,\n            \"creationDate\": \"2024-04-13T05:22:14Z\",\n            \"lastModificationDate\": null,\n            \"client\": {\n                \"id\": 51,\n                \"identificationType\": \"CEDULA\",\n                \"identification\": \"34444\",\n                \"name\": \"dos\",\n                \"lastName\": \"las\",\n                \"email\": \"correo@gmail.com\",\n                \"bornDate\": \"2005-01-01\",\n                \"creationDate\": \"2024-04-13T04:13:30Z\",\n                \"lastModificationDate\": \"2024-04-14T06:25:46.807492Z\"\n            }\n        }\n    },\n    {\n        \"id\": \"6a1e2a84-881b-4192-a74c-f93a40a93ae5\",\n        \"transactionType\": \"RETIRO\",\n        \"transactionDate\": \"2024-04-13T20:58:08.330833Z\",\n        \"amount\": 20,\n        \"origin\": {\n            \"id\": 131,\n            \"accountType\": \"CUENTA_AHORROS\",\n            \"number\": 3361487659,\n            \"state\": \"ACTIVA\",\n            \"balance\": 4,\n            \"exentGMF\": false,\n            \"creationDate\": \"2024-04-13T06:06:58Z\",\n            \"lastModificationDate\": null,\n            \"client\": {\n                \"id\": 51,\n                \"identificationType\": \"CEDULA\",\n                \"identification\": \"34444\",\n                \"name\": \"dos\",\n                \"lastName\": \"las\",\n                \"email\": \"correo@gmail.com\",\n                \"bornDate\": \"2005-01-01\",\n                \"creationDate\": \"2024-04-13T04:13:30Z\",\n                \"lastModificationDate\": \"2024-04-14T06:25:46.807492Z\"\n            }\n        },\n        \"destiny\": {\n            \"id\": 111,\n            \"accountType\": \"CUENTA_AHORROS\",\n            \"number\": 3342775750,\n            \"state\": \"ACTIVA\",\n            \"balance\": 23,\n            \"exentGMF\": false,\n            \"creationDate\": \"2024-04-13T05:22:14Z\",\n            \"lastModificationDate\": null,\n            \"client\": {\n                \"id\": 51,\n                \"identificationType\": \"CEDULA\",\n                \"identification\": \"34444\",\n                \"name\": \"dos\",\n                \"lastName\": \"las\",\n                \"email\": \"correo@gmail.com\",\n                \"bornDate\": \"2005-01-01\",\n                \"creationDate\": \"2024-04-13T04:13:30Z\",\n                \"lastModificationDate\": \"2024-04-14T06:25:46.807492Z\"\n            }\n        }\n    },\n    {\n        \"id\": \"a0769ea0-0238-43cc-aa83-ecd6c0ca4714\",\n        \"transactionType\": \"TRANSFERENCIA\",\n        \"transactionDate\": \"2024-04-13T20:58:08.330833Z\",\n        \"amount\": 20,\n        \"origin\": {\n            \"id\": 131,\n            \"accountType\": \"CUENTA_AHORROS\",\n            \"number\": 3361487659,\n            \"state\": \"ACTIVA\",\n            \"balance\": 4,\n            \"exentGMF\": false,\n            \"creationDate\": \"2024-04-13T06:06:58Z\",\n            \"lastModificationDate\": null,\n            \"client\": {\n                \"id\": 51,\n                \"identificationType\": \"CEDULA\",\n                \"identification\": \"34444\",\n                \"name\": \"dos\",\n                \"lastName\": \"las\",\n                \"email\": \"correo@gmail.com\",\n                \"bornDate\": \"2005-01-01\",\n                \"creationDate\": \"2024-04-13T04:13:30Z\",\n                \"lastModificationDate\": \"2024-04-14T06:25:46.807492Z\"\n            }\n        },\n        \"destiny\": {\n            \"id\": 111,\n            \"accountType\": \"CUENTA_AHORROS\",\n            \"number\": 3342775750,\n            \"state\": \"ACTIVA\",\n            \"balance\": 23,\n            \"exentGMF\": false,\n            \"creationDate\": \"2024-04-13T05:22:14Z\",\n            \"lastModificationDate\": null,\n            \"client\": {\n                \"id\": 51,\n                \"identificationType\": \"CEDULA\",\n                \"identification\": \"34444\",\n                \"name\": \"dos\",\n                \"lastName\": \"las\",\n                \"email\": \"correo@gmail.com\",\n                \"bornDate\": \"2005-01-01\",\n                \"creationDate\": \"2024-04-13T04:13:30Z\",\n                \"lastModificationDate\": \"2024-04-14T06:25:46.807492Z\"\n            }\n        }\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "crear transaccion",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"transactionType\": \"TRANSFERENCIA\",\r\n    \"amount\": 12,\r\n    \"origin\": {\r\n        \"id\": 151\r\n    },\r\n    \"destiny\": {\r\n        \"id\": 111\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/transactions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"transactions"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "creacion fallida, saldo insuficiente",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"transactionType\": \"TRANSFERENCIA\",\r\n    \"amount\": 20,\r\n    \"origin\": {\r\n        \"id\": 151\r\n    },\r\n    \"destiny\": {\r\n        \"id\": 111\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/transactions",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"transactions"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain;charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "152"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 14 Apr 2024 06:32:32 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "No se puede restar la cantidad de: 20 ya que el saldo actual es: 12.00 y el saldo quedaria negativo: -8.00 en la cuenta con ID: 151 y numero: 5370448732"
+						},
+						{
+							"name": "creacion exitosa",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"transactionType\": \"TRANSFERENCIA\",\r\n    \"amount\": 12,\r\n    \"origin\": {\r\n        \"id\": 151\r\n    },\r\n    \"destiny\": {\r\n        \"id\": 111\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/transactions",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"transactions"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 14 Apr 2024 06:33:41 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"36d8d140-2e66-4084-9dd8-72eada01dcd4\",\n    \"transactionType\": \"TRANSFERENCIA\",\n    \"transactionDate\": \"2024-04-14T06:33:41.5172162Z\",\n    \"amount\": 12,\n    \"origin\": {\n        \"id\": 151,\n        \"accountType\": \"CUENTA_CORRIENTE\",\n        \"number\": 5370448732,\n        \"state\": \"INACTIVA\",\n        \"balance\": 0,\n        \"exentGMF\": false,\n        \"creationDate\": \"2024-04-14T06:30:03Z\",\n        \"lastModificationDate\": null,\n        \"client\": {\n            \"id\": 141,\n            \"identificationType\": \"PASAPORTE\",\n            \"identification\": \"34463HH\",\n            \"name\": \"andrew\",\n            \"lastName\": \"carnegie\",\n            \"email\": \"correo@gmail.com\",\n            \"bornDate\": \"2005-01-01\",\n            \"creationDate\": \"2024-04-14T06:23:46Z\",\n            \"lastModificationDate\": null\n        }\n    },\n    \"destiny\": {\n        \"id\": 111,\n        \"accountType\": \"CUENTA_AHORROS\",\n        \"number\": 3342775750,\n        \"state\": \"ACTIVA\",\n        \"balance\": 35,\n        \"exentGMF\": false,\n        \"creationDate\": \"2024-04-13T05:22:14Z\",\n        \"lastModificationDate\": null,\n        \"client\": {\n            \"id\": 51,\n            \"identificationType\": \"CEDULA\",\n            \"identification\": \"34444\",\n            \"name\": \"dos\",\n            \"lastName\": \"las\",\n            \"email\": \"correo@gmail.com\",\n            \"bornDate\": \"2005-01-01\",\n            \"creationDate\": \"2024-04-13T04:13:30Z\",\n            \"lastModificationDate\": \"2024-04-14T06:25:46.807492Z\"\n        }\n    }\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "HOST",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}
