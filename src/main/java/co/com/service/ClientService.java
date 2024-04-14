@@ -1,7 +1,6 @@
 package co.com.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import co.com.domain.client.ClientException;
 import co.com.dto.ClientDTO;
@@ -16,5 +15,5 @@ public interface ClientService {
 
 	void delete(Long clientId) throws ClientException;
 
-	Optional<ClientDTO> findById(Long clientId);
+	ClientDTO findById(Long clientId) throws ClientException;
 }

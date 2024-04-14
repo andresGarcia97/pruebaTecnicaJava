@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.com.domain.accountbank.AccountBankException;
+import co.com.domain.client.ClientException;
 import co.com.dto.AccountBankDTO;
 import co.com.service.AccountBankService;
 
@@ -30,18 +31,21 @@ public class AccountBankResource {
 
 	@PostMapping("")
 	public ResponseEntity<?> createAccountBank(@RequestBody(required = true) final AccountBankDTO accountBank) {
-		log.debug("REST request to save accountBank: {}", accountBank);
+		log.info("REST request to save accountBank: {}", accountBank);
 		try {
 			return ResponseEntity.ok(accountBankService.save(accountBank));
 		} catch (AccountBankException e) {
 			log.error("Error to create accountBank: {} ERROR: ", accountBank, e);
+			return ResponseEntity.badRequest().body(e.getMessage());
+		} catch (ClientException e) {
+			log.error("Error to get client: {} ERROR: ", accountBank, e);
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
 
 	@PutMapping("")
 	public ResponseEntity<?> updateAccountBank(@RequestBody(required = true) final AccountBankDTO accountBank) {
-		log.debug("REST request to update accountBank: {}", accountBank);
+		log.info("REST request to update accountBank: {}", accountBank);
 		if (accountBank == null || accountBank.getId() == null) {
 			throw new IllegalArgumentException("Invalid ID");
 		}
@@ -55,7 +59,7 @@ public class AccountBankResource {
 
 	@GetMapping("")
 	public List<AccountBankDTO> getAll() {
-		log.debug("REST request to get all accountBanks");
+		log.info("REST request to get all accountBanks");
 		return accountBankService.findAll();
 	}
 
