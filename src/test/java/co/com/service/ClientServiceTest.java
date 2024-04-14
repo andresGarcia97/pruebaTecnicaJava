@@ -51,7 +51,7 @@ class ClientServiceTest {
 	@MockBean
 	private ClientEntityMapper entityMapper;
 
-	private ClientService ClientService;
+	private ClientService clientService;
 
 	private ClientDTO clientDto;
 
@@ -60,7 +60,7 @@ class ClientServiceTest {
 
 		this.clientDto = new ClientDTO();
 
-		this.ClientService = new ClientServiceImpl(
+		this.clientService = new ClientServiceImpl(
 				clientRepository,
 				queriesMapper,
 				domainMapper,
@@ -81,7 +81,7 @@ class ClientServiceTest {
 			when(domainMapper.toDomain(clientDto)).thenReturn(client);
 
 			final Exception exception = assertThrows(ClientException.class, () -> {
-				ClientService.save(clientDto);
+				clientService.save(clientDto);
 			});
 
 			assertTrue(exception.getMessage().contains("El usuario es menor de edad"));
@@ -100,7 +100,7 @@ class ClientServiceTest {
 			when(domainMapper.toDomain(clientDto)).thenReturn(client);
 
 			final Exception exception = assertThrows(ClientException.class, () -> {
-				ClientService.save(clientDto);
+				clientService.save(clientDto);
 			});
 
 			assertTrue(exception.getMessage().contains("El nombre y el apellido"));
@@ -120,7 +120,7 @@ class ClientServiceTest {
 			when(domainMapper.toDomain(clientDto)).thenReturn(client);
 
 			final Exception exception = assertThrows(ClientException.class, () -> {
-				ClientService.save(clientDto);
+				clientService.save(clientDto);
 			});
 
 			assertTrue(exception.getMessage().contains("El correo ingresado no es valido"));
@@ -142,7 +142,7 @@ class ClientServiceTest {
 			when(clientRepository.save(any(ClientEntity.class))).thenReturn(new ClientEntity());
 			when(queriesMapper.toDto(any(ClientEntity.class))).thenReturn(new ClientDTO());
 
-			final ClientDTO result = ClientService.save(clientDto);
+			final ClientDTO result = clientService.save(clientDto);
 
 			assertNotNull(client.getCreationDate());
 			assertNotNull(result);
@@ -163,7 +163,7 @@ class ClientServiceTest {
 			when(clientRepository.findById(anyLong())).thenReturn(Optional.empty());
 
 			final Exception exception = assertThrows(ClientException.class, () -> {
-				ClientService.update(clientDto);
+				clientService.update(clientDto);
 			});
 
 			assertTrue(exception.getMessage().contains(ClientException.CLIENT_NOT_EXIST));
@@ -195,7 +195,7 @@ class ClientServiceTest {
 			when(entityMapper.toDomain(any(ClientEntity.class))).thenReturn(clientCopy);
 
 			final Exception exception = assertThrows(ClientException.class, () -> {
-				ClientService.update(clientDto);
+				clientService.update(clientDto);
 			});
 
 			assertTrue(exception.getMessage().contains("No se puede cambiar la fecha de creacion"));
@@ -231,7 +231,7 @@ class ClientServiceTest {
 			when(clientRepository.save(any(ClientEntity.class))).thenReturn(new ClientEntity());
 			when(queriesMapper.toDto(any(ClientEntity.class))).thenReturn(new ClientDTO());
 
-			final ClientDTO result = ClientService.update(clientDto);
+			final ClientDTO result = clientService.update(clientDto);
 
 			assertNotNull(client.getLastModificationDate());
 			assertNotNull(result);
@@ -253,7 +253,7 @@ class ClientServiceTest {
 
 			when(clientRepository.findById(anyLong())).thenReturn(Optional.empty());
 
-			ClientService.delete(clientDto.getId());
+			clientService.delete(clientDto.getId());
 
 			verify(clientRepository, never()).deleteById(anyLong());
 		}
@@ -273,7 +273,7 @@ class ClientServiceTest {
 			when(clientRepository.findById(anyLong())).thenReturn(Optional.of(clientToDelete));
 
 			final Exception exception = assertThrows(ClientException.class, () -> {
-				ClientService.delete(clientDto.getId());
+				clientService.delete(clientDto.getId());
 			});
 
 			assertTrue(exception.getMessage().contains("No se puede eliminar este cliente"));
@@ -291,7 +291,7 @@ class ClientServiceTest {
 
 			when(clientRepository.findById(anyLong())).thenReturn(Optional.of(clientToDelete));
 
-			ClientService.delete(clientDto.getId());
+			clientService.delete(clientDto.getId());
 
 			verify(clientRepository, times(1)).deleteById(clientDto.getId());
 		}
