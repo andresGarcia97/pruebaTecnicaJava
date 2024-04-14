@@ -139,10 +139,7 @@ class ClientServiceTest {
 			client.setEmail("correoValido@gmail.com");
 
 			when(domainMapper.toDomain(clientDto)).thenReturn(client);
-			when(entityMapper.toEntity(client)).thenReturn(new ClientEntity());
-			when(clientRepository.save(any(ClientEntity.class))).thenReturn(new ClientEntity());
-			when(queriesMapper.toDto(any(ClientEntity.class))).thenReturn(new ClientDTO());
-
+			
 			final Exception exception = assertThrows(ClientException.class, () -> {
 				clientService.save(clientDto);
 			});

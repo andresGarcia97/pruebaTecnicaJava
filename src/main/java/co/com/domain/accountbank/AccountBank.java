@@ -107,7 +107,7 @@ public class AccountBank {
 		if(BigDecimal.ZERO.compareTo(subtractResult) > 0) {
 			throw new AccountBankException(new StringBuilder()
 					.append("No se puede restar la cantidad de: ").append(amount)
-					.append(" ya que el saldo actual es: ").append(this.balance)
+					.append(" ya que el saldo actual es: $").append(this.balance)
 					.append(" y el saldo quedaria negativo: ").append(subtractResult)
 					.append(" en la cuenta con ID: ").append(this.id)
 					.append(" y numero: ").append(this.number)
