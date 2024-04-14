@@ -186,7 +186,7 @@ class AccountBankServiceTest {
 
 		@Test
 		@DisplayName("Campos validos y/o alterados, se crea la cuenta bancaria")
-		void accountBankSuccess() throws ClientException, AccountBankException {
+		void alteringDataBeforeSave() throws ClientException, AccountBankException {
 
 			final ClientDTO client = new ClientDTO();
 			client.setId(12l);
@@ -223,7 +223,7 @@ class AccountBankServiceTest {
 
 		@Test
 		@DisplayName("Campos validos, se crea la cuenta bancaria")
-		void alteringRandomNumberAccount() throws ClientException, AccountBankException {
+		void accountBankSuccess() throws ClientException, AccountBankException {
 
 			final ClientDTO client = new ClientDTO();
 			client.setId(12l);
@@ -253,6 +253,11 @@ class AccountBankServiceTest {
 			assertNotNull(accountBank.getCreationDate());
 			assertNull(accountBank.getLastModificationDate());
 			assertNotEquals(BigDecimal.ZERO, accountBank.getBalance());
+
+			assertEquals(33, AccountType.CUENTA_CORRIENTE.getStartNumber());
+			final String numberAccountAsString = String.valueOf(accountBank.getNumber());
+			assertEquals(accountBank.getAccountType().getStartNumber(), Integer.valueOf(numberAccountAsString.substring(0, 2)));
+			assertEquals(10, numberAccountAsString.length());
 
 			assertNotNull(result);
 

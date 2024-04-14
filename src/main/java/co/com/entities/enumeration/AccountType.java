@@ -2,8 +2,8 @@ package co.com.entities.enumeration;
 
 public enum AccountType {
 
-	CUENTA_CORRIENTE(53),
-	CUENTA_AHORROS(33);
+	CUENTA_CORRIENTE(33),
+	CUENTA_AHORROS(53);
 
 	private final int startNumber;
 
