@@ -20,21 +20,21 @@ import co.com.service.TransactionService;
 @RequestMapping("/api/transactions")
 public class TransactionResource {
 
-    private static final Logger log = LoggerFactory.getLogger(TransactionResource.class);
+	private static final Logger log = LoggerFactory.getLogger(TransactionResource.class);
 
-    private final TransactionService transactionService;
-    
-    public TransactionResource(TransactionService transactionService) {
-        this.transactionService = transactionService;
-    }
-    
-    @PostMapping("")
-    public ResponseEntity<?> createTransaction(@RequestBody(required = true) final TransactionDTO transaction) {
-        log.debug("REST request to save transaction: {}", transaction);
-        if (transaction.getId() != null) {
-            throw new IllegalArgumentException("A new transaction cannot already have an ID");
-        }
-        try {
+	private final TransactionService transactionService;
+
+	public TransactionResource(TransactionService transactionService) {
+		this.transactionService = transactionService;
+	}
+
+	@PostMapping("")
+	public ResponseEntity<?> createTransaction(@RequestBody(required = true) final TransactionDTO transaction) {
+		log.debug("REST request to save transaction: {}", transaction);
+		if (transaction.getId() != null) {
+			throw new IllegalArgumentException("A new transaction cannot already have an ID");
+		}
+		try {
 			return ResponseEntity.ok(transactionService.saveAndFlush(transaction));
 		} catch (TransactionException e) {
 			log.error("Error to create transaction: {} ERROR: ", transaction, e);
@@ -43,12 +43,12 @@ public class TransactionResource {
 			log.error("Error to set accounts: {} ERROR: ", transaction, e);
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
-    }
-    
-    @GetMapping("")
-    public List<TransactionDTO> getAllTransactions() {
-        log.debug("REST request to get all transactions");
-        return transactionService.findAll();
-    }
-    
+	}
+
+	@GetMapping("")
+	public List<TransactionDTO> getAllTransactions() {
+		log.debug("REST request to get all transactions");
+		return transactionService.findAll();
+	}
+
 }
