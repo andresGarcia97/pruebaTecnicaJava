@@ -1,4 +1,4 @@
-package co.com.web.rest;
+package co.com.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

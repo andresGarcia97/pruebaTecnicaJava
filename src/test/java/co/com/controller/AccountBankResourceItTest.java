@@ -1,13 +1,13 @@
-package co.com.web.rest;
+package co.com.controller;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.util.Random;
-import java.util.concurrent.atomic.AtomicLong;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,37 +27,64 @@ import co.com.service.AccountBankService;
 @WebMvcTest(AccountBankResource.class)
 class AccountBankResourceItTest {
 
-    private static final String ENTITY_API_URL = "/api/account-banks";
-    private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
-    
-    @MockBean
-    private AccountBankService accountBankService;
-    
-    @Autowired
-    private MockMvc restAccountBankMockMvc;
-    
-    @BeforeEach
-    public void initTest() {
-    	
-    }
+	private static final String ENTITY_API_URL = "/api/account-banks";
 
-    @Test
-    void createAccountBank() throws Exception {
-    	
-    	final AccountBankDTO accountBankDTO = new AccountBankDTO();
-        restAccountBankMockMvc
-            .perform(
-            		post(ENTITY_API_URL)
-            		.contentType(MediaType.APPLICATION_JSON)
-            		.content(TestUtil.convertObjectToJsonBytes(accountBankDTO))
-            )
-            .andExpect(status().isOk());
-        
-        final ArgumentCaptor<AccountBankDTO> captor = ArgumentCaptor.forClass(AccountBankDTO.class);
-        verify(accountBankService, times(1)).save(captor.capture());
-        assertNotNull(captor.getValue());
-        
-    }
+	@MockBean
+	private AccountBankService accountBankService;
 
-   
+	@Autowired
+	private MockMvc restAccountBankMockMvc;
+
+	private AccountBankDTO accountBank;
+
+	@BeforeEach
+	public void initTest() {
+		this.accountBank = new AccountBankDTO();
+	}
+
+	@Test
+	void createAccountBank() throws Exception {
+
+		restAccountBankMockMvc
+		.perform(
+				post(ENTITY_API_URL)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(TestUtil.convertObjectToJsonBytes(accountBank)))
+		.andExpect(status().isOk());
+
+		final ArgumentCaptor<AccountBankDTO> captor = ArgumentCaptor.forClass(AccountBankDTO.class);
+		verify(accountBankService, times(1)).save(captor.capture());
+		assertNotNull(captor.getValue());
+	}
+
+	@Test
+	void getAllAccountBanks() throws Exception {
+		restAccountBankMockMvc
+		.perform(
+				get(ENTITY_API_URL)
+				.contentType(MediaType.APPLICATION_JSON))
+		.andExpect(status().isOk());
+		verify(accountBankService, times(1)).findAll();
+	}
+
+	@Test
+	void putAccountBank() throws Exception {
+
+		final Long id = 124l;
+		this.accountBank = new AccountBankDTO();
+		this.accountBank.setId(id);
+
+		restAccountBankMockMvc
+		.perform(
+				put(ENTITY_API_URL)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(TestUtil.convertObjectToJsonBytes(accountBank)))
+		.andExpect(status().isOk());
+
+		final ArgumentCaptor<AccountBankDTO> captor = ArgumentCaptor.forClass(AccountBankDTO.class);
+		verify(accountBankService, times(1)).update(captor.capture());
+		assertNotNull(captor.getValue());
+		assertEquals(id, captor.getValue().getId());
+	}
+	
 }
