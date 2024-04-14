@@ -3,6 +3,7 @@ package co.com.domain.client;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
@@ -46,6 +47,7 @@ public class Client {
 		this.validateBornDate();
 		this.validateNameAndLastName();
 		this.validateEmail();
+		this.validateIdFields();
 
 		if(this.lastModificationDate != null) {
 			throw new ClientException("Un cliente nuevo, No puede tener fecha de modificación");
@@ -60,6 +62,7 @@ public class Client {
 		this.validateBornDate();
 		this.validateNameAndLastName();
 		this.validateEmail();
+		this.validateIdFields();
 
 		if(this.getCreationDate().toInstant().compareTo(client.getCreationDate().toInstant()) != 0) {
 			log.error("validateUpdate :: dateCreationPrevious: {}, dateCreationUpdate: {}", client.getCreationDate(), this.getCreationDate());
@@ -111,6 +114,18 @@ public class Client {
 
 		if(!Pattern.matches(REGEX_EMAIL, this.email)) {
 			throw new ClientException("El correo ingresado no es valido");
+		}
+	}
+
+	private void validateIdFields() throws ClientException {
+
+		if(this.identification == null || this.identification.isBlank()) {
+			throw new ClientException("La identificación es obligatoria");
+		}
+
+		if(this.identificationType == null) {
+			throw new ClientException("El tipo de identificación es obligatoria, y solo puede ser de tipo: " +
+					Arrays.toString(IdentificationType.values()));
 		}
 	}
 

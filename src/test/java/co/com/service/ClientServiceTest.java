@@ -29,6 +29,7 @@ import co.com.domain.client.ClientException;
 import co.com.dto.ClientDTO;
 import co.com.entities.AccountBankEntity;
 import co.com.entities.ClientEntity;
+import co.com.entities.enumeration.IdentificationType;
 import co.com.repository.ClientRepository;
 import co.com.service.impl.ClientServiceImpl;
 import co.com.service.mapper.client.ClientDomainMapper;
@@ -128,6 +129,29 @@ class ClientServiceTest {
 		}
 
 		@Test
+		@DisplayName("Cliente sin identificacion")
+		void clientWithOutIdentification() throws ClientException {
+
+			final Client client = new Client();
+			client.setBornDate(LocalDate.now().minusYears(20));
+			client.setName("nombre");
+			client.setLastName("appellido");
+			client.setEmail("correoValido@gmail.com");
+
+			when(domainMapper.toDomain(clientDto)).thenReturn(client);
+			when(entityMapper.toEntity(client)).thenReturn(new ClientEntity());
+			when(clientRepository.save(any(ClientEntity.class))).thenReturn(new ClientEntity());
+			when(queriesMapper.toDto(any(ClientEntity.class))).thenReturn(new ClientDTO());
+
+			final Exception exception = assertThrows(ClientException.class, () -> {
+				clientService.save(clientDto);
+			});
+
+			assertTrue(exception.getMessage().contains("La identificación es obligatoria"));
+			verify(clientRepository, never()).save(any(ClientEntity.class));
+		}
+
+		@Test
 		@DisplayName("Cliente con datos correctamente validados")
 		void clientSaveSuccess() throws ClientException {
 
@@ -136,6 +160,8 @@ class ClientServiceTest {
 			client.setName("nombre");
 			client.setLastName("appellido");
 			client.setEmail("correoValido@gmail.com");
+			client.setIdentification("Identificacion");
+			client.setIdentificationType(IdentificationType.CEDULA);
 
 			when(domainMapper.toDomain(clientDto)).thenReturn(client);
 			when(entityMapper.toEntity(client)).thenReturn(new ClientEntity());
@@ -182,6 +208,8 @@ class ClientServiceTest {
 			client.setLastName("appellido");
 			client.setEmail("correoValido@gmail.com");
 			client.setCreationDate(ZonedDateTime.now());
+			client.setIdentification("Identificacion");
+			client.setIdentificationType(IdentificationType.CEDULA);
 
 			final Client clientCopy = new Client();
 			clientCopy.setBornDate(LocalDate.now().minusYears(20));
@@ -216,6 +244,8 @@ class ClientServiceTest {
 			client.setLastName("appellido");
 			client.setEmail("correoValido@gmail.com");
 			client.setCreationDate(currentTime);
+			client.setIdentification("Identificacion");
+			client.setIdentificationType(IdentificationType.CEDULA);
 
 			final Client clientCopy = new Client();
 			clientCopy.setBornDate(LocalDate.now().minusYears(20));
@@ -223,6 +253,8 @@ class ClientServiceTest {
 			clientCopy.setLastName("appellido");
 			clientCopy.setEmail("correovalido@gmail.com");
 			clientCopy.setCreationDate(currentTime);
+			clientCopy.setIdentification("Identificacion");
+			clientCopy.setIdentificationType(IdentificationType.CEDULA);
 
 			when(clientRepository.findById(anyLong())).thenReturn(Optional.of(new ClientEntity()));
 			when(domainMapper.toDomain(any(ClientDTO.class))).thenReturn(client);
