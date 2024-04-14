@@ -42,7 +42,7 @@ import co.com.service.mapper.accountbank.AccountBankQueriesMapper;
 
 @DirtiesContext
 @ExtendWith(SpringExtension.class)
-public class AccountBankServiceTest {
+class AccountBankServiceTest {
 
 	@MockBean
 	private AccountBankRepository accountBankRepository;
