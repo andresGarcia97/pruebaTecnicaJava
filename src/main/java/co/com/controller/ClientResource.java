@@ -23,57 +23,57 @@ import co.com.service.ClientService;
 @RequestMapping("/api/clients")
 public class ClientResource {
 
-    private static final Logger log = LoggerFactory.getLogger(ClientResource.class);
+	private static final Logger log = LoggerFactory.getLogger(ClientResource.class);
 
-    private final ClientService clientService;
+	private final ClientService clientService;
 
-    public ClientResource(ClientService clientService) {
-        this.clientService = clientService;
-    }
-    
-    @PostMapping("")
-    public ResponseEntity<?> create(@RequestBody(required = true) final ClientDTO client) {
-        log.debug("REST request to save client: {}", client);
-        if (client.getId() != null) {
-            throw new IllegalArgumentException("A new client cannot already have an ID");
-        }
-        try {
+	public ClientResource(ClientService clientService) {
+		this.clientService = clientService;
+	}
+
+	@PostMapping("")
+	public ResponseEntity<?> create(@RequestBody(required = true) final ClientDTO client) {
+		log.debug("REST request to save client: {}", client);
+		if (client.getId() != null) {
+			throw new IllegalArgumentException("A new client cannot already have an ID");
+		}
+		try {
 			return ResponseEntity.ok(clientService.save(client));
 		} catch (ClientException e) {
 			log.error("Error to create client: {} ERROR: ", client, e);
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
-    }
-    
-    @PutMapping("")
-    public ResponseEntity<?> update(@RequestBody(required = true) final ClientDTO client) {
-        log.debug("REST request to update client: {}", client);
-        if (client == null || client.getId() == null) {
-            throw new IllegalArgumentException("Invalid ID");
-        }
-        try {
+	}
+
+	@PutMapping("")
+	public ResponseEntity<?> update(@RequestBody(required = true) final ClientDTO client) {
+		log.debug("REST request to update client: {}", client);
+		if (client == null || client.getId() == null) {
+			throw new IllegalArgumentException("Invalid ID");
+		}
+		try {
 			return ResponseEntity.ok(clientService.update(client));
 		} catch (ClientException e) {
 			log.error("Error to update client: {} ERROR: ", client, e);
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
-    }
-    
-    @GetMapping("")
-    public List<ClientDTO> getAll() {
-        log.debug("REST request to get all clients");
-        return clientService.findAll();
-    }
-    
-    @DeleteMapping("/{clientId}")
-    public ResponseEntity<?> delete(@PathVariable(required = true) Long clientId) {
-        log.debug("REST request to delete client, clientId: {}", clientId);
-        try {
+	}
+
+	@GetMapping("")
+	public List<ClientDTO> getAll() {
+		log.debug("REST request to get all clients");
+		return clientService.findAll();
+	}
+
+	@DeleteMapping("/{clientId}")
+	public ResponseEntity<?> delete(@PathVariable(required = true, name = "clientId") Long clientId) {
+		log.debug("REST request to delete client, clientId: {}", clientId);
+		try {
 			clientService.delete(clientId);
 			return ResponseEntity.noContent().build();
 		} catch (ClientException e) {
 			log.error("Error to delete clientId: {} ERROR: ", clientId, e);
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
-    }
+	}
 }

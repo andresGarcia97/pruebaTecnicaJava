@@ -19,13 +19,12 @@ import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 
-import co.com.controller.AccountBankResource;
 import co.com.dto.AccountBankDTO;
 import co.com.service.AccountBankService;
 
 @DirtiesContext
 @WebMvcTest(AccountBankResource.class)
-class AccountBankResourceItTest {
+class AccountBankResourceTest {
 
 	private static final String ENTITY_API_URL = "/api/account-banks";
 
@@ -64,6 +63,7 @@ class AccountBankResourceItTest {
 				get(ENTITY_API_URL)
 				.contentType(MediaType.APPLICATION_JSON))
 		.andExpect(status().isOk());
+
 		verify(accountBankService, times(1)).findAll();
 	}
 
@@ -86,5 +86,5 @@ class AccountBankResourceItTest {
 		assertNotNull(captor.getValue());
 		assertEquals(id, captor.getValue().getId());
 	}
-	
+
 }

@@ -20,43 +20,43 @@ import co.com.service.AccountBankService;
 @RequestMapping("/api/account-banks")
 public class AccountBankResource {
 
-    private static final Logger log = LoggerFactory.getLogger(AccountBankResource.class);
+	private static final Logger log = LoggerFactory.getLogger(AccountBankResource.class);
 
-    private final AccountBankService accountBankService;
+	private final AccountBankService accountBankService;
 
-    public AccountBankResource(AccountBankService accountBankService) {
-        this.accountBankService = accountBankService;
-    }
-    
-    @PostMapping("")
-    public ResponseEntity<?> createAccountBank(@RequestBody(required = true) final AccountBankDTO accountBank) {
-        log.debug("REST request to save accountBank: {}", accountBank);
-        try {
+	public AccountBankResource(AccountBankService accountBankService) {
+		this.accountBankService = accountBankService;
+	}
+
+	@PostMapping("")
+	public ResponseEntity<?> createAccountBank(@RequestBody(required = true) final AccountBankDTO accountBank) {
+		log.debug("REST request to save accountBank: {}", accountBank);
+		try {
 			return ResponseEntity.ok(accountBankService.save(accountBank));
 		} catch (AccountBankException e) {
 			log.error("Error to create accountBank: {} ERROR: ", accountBank, e);
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
-    }
-    
-    @PutMapping("")
-    public ResponseEntity<?> updateAccountBank(@RequestBody(required = true) final AccountBankDTO accountBank) {
-        log.debug("REST request to update accountBank: {}", accountBank);
-        if (accountBank == null || accountBank.getId() == null) {
-            throw new IllegalArgumentException("Invalid ID");
-        }
-        try {
+	}
+
+	@PutMapping("")
+	public ResponseEntity<?> updateAccountBank(@RequestBody(required = true) final AccountBankDTO accountBank) {
+		log.debug("REST request to update accountBank: {}", accountBank);
+		if (accountBank == null || accountBank.getId() == null) {
+			throw new IllegalArgumentException("Invalid ID");
+		}
+		try {
 			return ResponseEntity.ok().body(accountBankService.update(accountBank));
 		} catch (AccountBankException e) {
 			log.error("Error to update accountBank: {} ERROR: ", accountBank, e);
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
-    }
+	}
 
-    @GetMapping("")
-    public List<AccountBankDTO> getAll() {
-        log.debug("REST request to get all accountBanks");
-        return accountBankService.findAll();
-    }
-    
+	@GetMapping("")
+	public List<AccountBankDTO> getAll() {
+		log.debug("REST request to get all accountBanks");
+		return accountBankService.findAll();
+	}
+
 }
