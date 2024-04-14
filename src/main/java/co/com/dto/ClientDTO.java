@@ -9,101 +9,101 @@ import co.com.entities.enumeration.IdentificationType;
 
 public class ClientDTO implements Serializable {
 
-    private static final long serialVersionUID = -2611438298976094339L;
+	private static final long serialVersionUID = -2611438298976094339L;
 
 	private Long id;
 
-    private IdentificationType identificationType;
+	private IdentificationType identificationType;
 
-    private String identification;
+	private String identification;
 
-    private String name;
+	private String name;
 
-    private String lastName;
+	private String lastName;
 
-    private String email;
+	private String email;
 
-    private LocalDate bornDate;
-    
-    private ZonedDateTime creationDate;
+	private LocalDate bornDate;
 
-    private ZonedDateTime lastModificationDate;
-    
-    public ClientDTO() {
-    	super();
+	private ZonedDateTime creationDate;
+
+	private ZonedDateTime lastModificationDate;
+
+	public ClientDTO() {
+		super();
 	}
 
-    public Long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public IdentificationType getIdentificationType() {
-        return identificationType;
-    }
+	public IdentificationType getIdentificationType() {
+		return identificationType;
+	}
 
-    public void setIdentificationType(IdentificationType identificationType) {
-        this.identificationType = identificationType;
-    }
+	public void setIdentificationType(IdentificationType identificationType) {
+		this.identificationType = identificationType;
+	}
 
-    public String getIdentification() {
-        return identification;
-    }
+	public String getIdentification() {
+		return identification;
+	}
 
-    public void setIdentification(String identification) {
-        this.identification = identification;
-    }
+	public void setIdentification(String identification) {
+		this.identification = identification;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public String getLastName() {
-        return lastName;
-    }
+	public String getLastName() {
+		return lastName;
+	}
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public LocalDate getBornDate() {
-        return bornDate;
-    }
+	public LocalDate getBornDate() {
+		return bornDate;
+	}
 
-    public void setBornDate(LocalDate bornDate) {
-        this.bornDate = bornDate;
-    }
+	public void setBornDate(LocalDate bornDate) {
+		this.bornDate = bornDate;
+	}
 
-    public ZonedDateTime getCreationDate() {
-        return creationDate;
-    }
+	public ZonedDateTime getCreationDate() {
+		return creationDate;
+	}
 
-    public void setCreationDate(ZonedDateTime creationDate) {
-        this.creationDate = creationDate;
-    }
+	public void setCreationDate(ZonedDateTime creationDate) {
+		this.creationDate = creationDate;
+	}
 
-    public ZonedDateTime getLastModificationDate() {
-        return lastModificationDate;
-    }
+	public ZonedDateTime getLastModificationDate() {
+		return lastModificationDate;
+	}
 
-    public void setLastModificationDate(ZonedDateTime lastModificationDate) {
-        this.lastModificationDate = lastModificationDate;
-    }
+	public void setLastModificationDate(ZonedDateTime lastModificationDate) {
+		this.lastModificationDate = lastModificationDate;
+	}
 
 	@Override
 	public int hashCode() {
@@ -129,18 +129,18 @@ public class ClientDTO implements Serializable {
 	}
 
 	// prettier-ignore
-    @Override
-    public String toString() {
-        return "ClientDTO{" +
-            "id=" + getId() +
-            ", identificationType='" + getIdentificationType() + "'" +
-            ", identification='" + getIdentification() + "'" +
-            ", name='" + getName() + "'" +
-            ", lastName='" + getLastName() + "'" +
-            ", email='" + getEmail() + "'" +
-            ", bornDate='" + getBornDate() + "'" +
-            ", creationDate='" + getCreationDate() + "'" +
-            ", lastModificationDate='" + getLastModificationDate() + "'" +
-            "}";
-    }
+	@Override
+	public String toString() {
+		return "ClientDTO{" +
+				"id=" + getId() +
+				", identificationType='" + getIdentificationType() + "'" +
+						", identification='" + getIdentification() + "'" +
+								", name='" + getName() + "'" +
+								", lastName='" + getLastName() + "'" +
+								", email='" + getEmail() + "'" +
+								", bornDate='" + getBornDate() + "'" +
+								", creationDate='" + getCreationDate() + "'" +
+								", lastModificationDate='" + getLastModificationDate() + "'" +
+								"}";
+	}
 }

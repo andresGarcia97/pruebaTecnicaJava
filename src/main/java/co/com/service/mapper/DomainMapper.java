@@ -8,8 +8,8 @@ package co.com.service.mapper;
  */
 
 public interface DomainMapper<D, B> {
-    B toDomain(D dto);
+	B toDomain(D dto);
 
-    D toDto(B domain);
-   
+	D toDto(B domain);
+
 }

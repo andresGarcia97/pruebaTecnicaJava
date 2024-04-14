@@ -10,11 +10,11 @@ import java.util.List;
  */
 
 public interface EntityMapper<D, E> {
-    E toEntity(D dto);
+	E toEntity(D dto);
 
-    D toDomain(E entity);
+	D toDomain(E entity);
 
-    List<E> toEntity(List<D> dtoList);
+	List<E> toEntity(List<D> dtoList);
 
-    List<D> toDomain(List<E> entityList);
+	List<D> toDomain(List<E> entityList);
 }

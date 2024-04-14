@@ -23,47 +23,47 @@ import jakarta.validation.constraints.NotNull;
 @Table(name = "client")
 public class ClientEntity implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
-    @Column(name = "id")
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
+	@SequenceGenerator(name = "sequenceGenerator")
+	@Column(name = "id")
+	private Long id;
 
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(name = "identification_type", nullable = false)
-    private IdentificationType identificationType;
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	@Column(name = "identification_type", nullable = false)
+	private IdentificationType identificationType;
 
-    @NotNull
-    @Column(name = "identification", nullable = false)
-    private String identification;
+	@NotNull
+	@Column(name = "identification", nullable = false)
+	private String identification;
 
-    @Column(name = "name")
-    private String name;
+	@Column(name = "name")
+	private String name;
 
-    @Column(name = "last_name")
-    private String lastName;
+	@Column(name = "last_name")
+	private String lastName;
 
-    @Column(name = "email")
-    private String email;
+	@Column(name = "email")
+	private String email;
 
-    @NotNull
-    @Column(name = "born_date", nullable = false)
-    private LocalDate bornDate;
+	@NotNull
+	@Column(name = "born_date", nullable = false)
+	private LocalDate bornDate;
 
-    @NotNull
-    @Column(name = "creation_date", nullable = false)
-    private ZonedDateTime creationDate;
+	@NotNull
+	@Column(name = "creation_date", nullable = false)
+	private ZonedDateTime creationDate;
 
-    @Column(name = "last_modification_date")
-    private ZonedDateTime lastModificationDate;
+	@Column(name = "last_modification_date")
+	private ZonedDateTime lastModificationDate;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "client")
-    private Set<AccountBankEntity> accounts;
-    
-    public ClientEntity() {
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "client")
+	private Set<AccountBankEntity> accounts;
+
+	public ClientEntity() {
 		super();
 	}
 
@@ -148,36 +148,36 @@ public class ClientEntity implements Serializable {
 	}
 
 	@Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof ClientEntity)) {
-            return false;
-        }
-        return getId() != null && getId().equals(((ClientEntity) o).getId());
-    }
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (!(o instanceof ClientEntity)) {
+			return false;
+		}
+		return getId() != null && getId().equals(((ClientEntity) o).getId());
+	}
 
-    @Override
-    public int hashCode() {
-        // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
-        return getClass().hashCode();
-    }
+	@Override
+	public int hashCode() {
+		// see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
+		return getClass().hashCode();
+	}
 
-    // prettier-ignore
-    @Override
-    public String toString() {
-        return "ClientEntity{" +
-            "id=" + getId() +
-            ", identificationType='" + getIdentificationType() + "'" +
-            ", identification='" + getIdentification() + "'" +
-            ", name='" + getName() + "'" +
-            ", lastName='" + getLastName() + "'" +
-            ", email='" + getEmail() + "'" +
-            ", bornDate='" + getBornDate() + "'" +
-            ", creationDate='" + getCreationDate() + "'" +
-            ", lastModificationDate='" + getLastModificationDate() + "'" +
-            ", accounts='" + getAccounts() + "'" +
-            "}";
-    }
+	// prettier-ignore
+	@Override
+	public String toString() {
+		return "ClientEntity{" +
+				"id=" + getId() +
+				", identificationType='" + getIdentificationType() + "'" +
+				", identification='" + getIdentification() + "'" +
+				", name='" + getName() + "'" +
+				", lastName='" + getLastName() + "'" +
+				", email='" + getEmail() + "'" +
+				", bornDate='" + getBornDate() + "'" +
+				", creationDate='" + getCreationDate() + "'" +
+				", lastModificationDate='" + getLastModificationDate() + "'" +
+				", accounts='" + getAccounts() + "'" +
+				"}";
+	}
 }

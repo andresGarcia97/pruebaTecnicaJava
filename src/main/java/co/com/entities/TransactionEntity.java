@@ -23,39 +23,39 @@ import jakarta.validation.constraints.NotNull;
 @Table(name = "transaction")
 public class TransactionEntity implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue
-    @Column(name = "id")
-    private UUID id;
+	@Id
+	@GeneratedValue
+	@Column(name = "id")
+	private UUID id;
 
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(name = "transaction_type", nullable = false)
-    private TransactionType transactionType;
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	@Column(name = "transaction_type", nullable = false)
+	private TransactionType transactionType;
 
-    @NotNull
-    @Column(name = "transaction_date", nullable = false)
-    private ZonedDateTime transactionDate;
+	@NotNull
+	@Column(name = "transaction_date", nullable = false)
+	private ZonedDateTime transactionDate;
 
-    @NotNull
-    @DecimalMin(value = "0")
-    @Column(name = "amount", precision = 21, scale = 2, nullable = false)
-    private BigDecimal amount;
+	@NotNull
+	@DecimalMin(value = "0")
+	@Column(name = "amount", precision = 21, scale = 2, nullable = false)
+	private BigDecimal amount;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(unique = false)
-    private AccountBankEntity origin;
-    
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(unique = false)
-    private AccountBankEntity destiny;
-    
-    public TransactionEntity() {
-    	super();
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(unique = false)
+	private AccountBankEntity origin;
+
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(unique = false)
+	private AccountBankEntity destiny;
+
+	public TransactionEntity() {
+		super();
 	}
-    
+
 	public UUID getId() {
 		return id;
 	}
@@ -103,34 +103,34 @@ public class TransactionEntity implements Serializable {
 	public void setDestiny(AccountBankEntity destiny) {
 		this.destiny = destiny;
 	}
-	
+
 	@Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof TransactionEntity)) {
-            return false;
-        }
-        return getId() != null && getId().equals(((TransactionEntity) o).getId());
-    }
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (!(o instanceof TransactionEntity)) {
+			return false;
+		}
+		return getId() != null && getId().equals(((TransactionEntity) o).getId());
+	}
 
-    @Override
-    public int hashCode() {
-        // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
-        return getClass().hashCode();
-    }
+	@Override
+	public int hashCode() {
+		// see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
+		return getClass().hashCode();
+	}
 
-    // prettier-ignore
-    @Override
-    public String toString() {
-        return "TransactionEntity{" +
-            "id=" + getId() +
-            ", transactionType='" + getTransactionType() + "'" +
-            ", transactionDate='" + getTransactionDate() + "'" +
-            ", amount=" + getAmount() +
-            ", origin=" + getOrigin() +
-            ", destiny=" + getDestiny() +
-            "}";
-    }
+	// prettier-ignore
+	@Override
+	public String toString() {
+		return "TransactionEntity{" +
+				"id=" + getId() +
+				", transactionType='" + getTransactionType() + "'" +
+				", transactionDate='" + getTransactionDate() + "'" +
+				", amount=" + getAmount() +
+				", origin=" + getOrigin() +
+				", destiny=" + getDestiny() +
+				"}";
+	}
 }

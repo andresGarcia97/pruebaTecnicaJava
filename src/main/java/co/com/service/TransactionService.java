@@ -7,9 +7,9 @@ import co.com.domain.transaction.TransactionException;
 import co.com.dto.TransactionDTO;
 
 public interface TransactionService {
-	
-    TransactionDTO saveAndFlush(TransactionDTO transactionDTO) throws TransactionException, AccountBankException;
-    
-    List<TransactionDTO> findAll();
-    
+
+	TransactionDTO saveAndFlush(TransactionDTO transactionDTO) throws TransactionException, AccountBankException;
+
+	List<TransactionDTO> findAll();
+
 }

@@ -10,8 +10,8 @@ import java.util.List;
  */
 
 public interface QueriesMapper<D, E> {
-	
-    D toDto(E entity);
-    
-    List<D> toDto(List<E> entityList);
+
+	D toDto(E entity);
+
+	List<D> toDto(List<E> entityList);
 }

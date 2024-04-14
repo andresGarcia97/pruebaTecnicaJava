@@ -13,74 +13,74 @@ import co.com.entities.enumeration.TransactionType;
 
 public class TransactionDTO implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
 	private UUID id;
-	
-    private TransactionType transactionType;
-    
-    private ZonedDateTime transactionDate;
-    
-    private BigDecimal amount;
 
-    @JsonInclude(Include.NON_NULL)
-    private AccountBankDTO origin;
-    
-    @JsonInclude(Include.NON_NULL)
-    private AccountBankDTO destiny;
-    
-    public TransactionDTO() {
+	private TransactionType transactionType;
+
+	private ZonedDateTime transactionDate;
+
+	private BigDecimal amount;
+
+	@JsonInclude(Include.NON_NULL)
+	private AccountBankDTO origin;
+
+	@JsonInclude(Include.NON_NULL)
+	private AccountBankDTO destiny;
+
+	public TransactionDTO() {
 		super();
 	}
 
-    public UUID getId() {
-        return id;
-    }
+	public UUID getId() {
+		return id;
+	}
 
-    public void setId(UUID id) {
-        this.id = id;
-    }
+	public void setId(UUID id) {
+		this.id = id;
+	}
 
-    public TransactionType getTransactionType() {
-        return transactionType;
-    }
+	public TransactionType getTransactionType() {
+		return transactionType;
+	}
 
-    public void setTransactionType(TransactionType transactionType) {
-        this.transactionType = transactionType;
-    }
+	public void setTransactionType(TransactionType transactionType) {
+		this.transactionType = transactionType;
+	}
 
-    public ZonedDateTime getTransactionDate() {
-        return transactionDate;
-    }
+	public ZonedDateTime getTransactionDate() {
+		return transactionDate;
+	}
 
-    public void setTransactionDate(ZonedDateTime transactionDate) {
-        this.transactionDate = transactionDate;
-    }
+	public void setTransactionDate(ZonedDateTime transactionDate) {
+		this.transactionDate = transactionDate;
+	}
 
-    public BigDecimal getAmount() {
-        return amount;
-    }
+	public BigDecimal getAmount() {
+		return amount;
+	}
 
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
+	}
 
-    public AccountBankDTO getOrigin() {
-        return origin;
-    }
+	public AccountBankDTO getOrigin() {
+		return origin;
+	}
 
-    public void setOrigin(AccountBankDTO origin) {
-        this.origin = origin;
-    }
-    
-    public AccountBankDTO getDestiny() {
+	public void setOrigin(AccountBankDTO origin) {
+		this.origin = origin;
+	}
+
+	public AccountBankDTO getDestiny() {
 		return destiny;
 	}
 
 	public void setDestiny(AccountBankDTO destiny) {
 		this.destiny = destiny;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(amount, destiny, id, origin, transactionDate, transactionType);
@@ -101,15 +101,15 @@ public class TransactionDTO implements Serializable {
 	}
 
 	// prettier-ignore
-    @Override
-    public String toString() {
-        return "TransactionDTO{" +
-            "id='" + getId() + "'" +
-            ", transactionType='" + getTransactionType() + "'" +
-            ", transactionDate='" + getTransactionDate() + "'" +
-            ", amount=" + getAmount() +
-            ", origin=" + getOrigin() +
-            ", destiny=" + getDestiny() +
-            "}";
-    }
+	@Override
+	public String toString() {
+		return "TransactionDTO{" +
+				"id='" + getId() + "'" +
+						", transactionType='" + getTransactionType() + "'" +
+						", transactionDate='" + getTransactionDate() + "'" +
+						", amount=" + getAmount() +
+						", origin=" + getOrigin() +
+						", destiny=" + getDestiny() +
+						"}";
+	}
 }

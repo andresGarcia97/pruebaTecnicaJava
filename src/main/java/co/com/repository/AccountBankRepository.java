@@ -15,10 +15,10 @@ import co.com.entities.AccountBankEntity;
 public interface AccountBankRepository extends JpaRepository<AccountBankEntity, Long> {
 
 	Optional<AccountBankEntity> findByNumber(Long number);
-	
+
 	@Modifying
 	@Transactional
 	@Query("UPDATE AccountBankEntity ab SET ab.balance = ?1 WHERE ab.id = ?2")
 	void updateBalanceById(BigDecimal balance, Long id);
-	
+
 }

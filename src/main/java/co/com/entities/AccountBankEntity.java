@@ -25,50 +25,50 @@ import jakarta.validation.constraints.NotNull;
 @Table(name = "account_bank")
 public class AccountBankEntity implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
-    private Long id;
+	@Id
+	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
+	@SequenceGenerator(name = "sequenceGenerator")
+	private Long id;
 
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(name = "account_type", nullable = false)
-    private AccountType accountType;
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	@Column(name = "account_type", nullable = false)
+	private AccountType accountType;
 
-    @NotNull
-    @Column(name = "number", nullable = false, unique = true)
-    private Long number;
+	@NotNull
+	@Column(name = "number", nullable = false, unique = true)
+	private Long number;
 
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(name = "state", nullable = false)
-    private AccountState state;
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	@Column(name = "state", nullable = false)
+	private AccountState state;
 
-    @NotNull
-    @DecimalMin(value = "0")
-    @Column(name = "balance", precision = 21, scale = 2, nullable = false)
-    private BigDecimal balance;
+	@NotNull
+	@DecimalMin(value = "0")
+	@Column(name = "balance", precision = 21, scale = 2, nullable = false)
+	private BigDecimal balance;
 
-    @NotNull
-    @Column(name = "exent_gmf", nullable = false)
-    private Boolean exentGMF;
+	@NotNull
+	@Column(name = "exent_gmf", nullable = false)
+	private Boolean exentGMF;
 
-    @NotNull
-    @Column(name = "creation_date", nullable = false)
-    private ZonedDateTime creationDate;
+	@NotNull
+	@Column(name = "creation_date", nullable = false)
+	private ZonedDateTime creationDate;
 
-    @Column(name = "last_modification_date")
-    private ZonedDateTime lastModificationDate;
+	@Column(name = "last_modification_date")
+	private ZonedDateTime lastModificationDate;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "client_id", referencedColumnName = "id")
-    private ClientEntity client;
-    
-    public AccountBankEntity() {
+	@NotNull
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+	@JoinColumn(name = "client_id", referencedColumnName = "id")
+	private ClientEntity client;
+
+	public AccountBankEntity() {
 		super();
 	}
 
@@ -145,36 +145,36 @@ public class AccountBankEntity implements Serializable {
 	}
 
 	@Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof AccountBankEntity)) {
-            return false;
-        }
-        return getId() != null && getId().equals(((AccountBankEntity) o).getId());
-    }
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (!(o instanceof AccountBankEntity)) {
+			return false;
+		}
+		return getId() != null && getId().equals(((AccountBankEntity) o).getId());
+	}
 
-    @Override
-    public int hashCode() {
-        // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
-        return getClass().hashCode();
-    }
+	@Override
+	public int hashCode() {
+		// see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
+		return getClass().hashCode();
+	}
 
-    // prettier-ignore
-    @Override
-    public String toString() {
-    	final Long clientId = getClient() == null ? null : getClient().getId();
-        return "AccountBankEntity{" +
-            "id=" + getId() +
-            ", accountType='" + getAccountType() + "'" +
-            ", number=" + getNumber() +
-            ", state='" + getState() + "'" +
-            ", balance=" + getBalance() +
-            ", exentGMF='" + getExentGMF() + "'" +
-            ", creationDate='" + getCreationDate() + "'" +
-            ", lastModificationDate='" + getLastModificationDate() + "'" +
-            ", clientId='" + clientId  + "'" +
-            "}";
-    }
+	// prettier-ignore
+	@Override
+	public String toString() {
+		final Long clientId = getClient() == null ? null : getClient().getId();
+		return "AccountBankEntity{" +
+		"id=" + getId() +
+		", accountType='" + getAccountType() + "'" +
+		", number=" + getNumber() +
+		", state='" + getState() + "'" +
+		", balance=" + getBalance() +
+		", exentGMF='" + getExentGMF() + "'" +
+		", creationDate='" + getCreationDate() + "'" +
+		", lastModificationDate='" + getLastModificationDate() + "'" +
+		", clientId='" + clientId  + "'" +
+		"}";
+	}
 }
