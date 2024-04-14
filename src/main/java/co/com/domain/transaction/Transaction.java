@@ -111,7 +111,7 @@ public class Transaction {
 		}
 
 		if(this.amount == null || BigDecimal.ZERO.compareTo(this.amount) >= 0) {
-			throw new TransactionException("El monto de la transacción es obligatorio y debe ser mayor o igual a Zero");
+			throw new TransactionException("El monto de la transacción es obligatorio y debe ser mayor a Zero");
 		}
 	}
 

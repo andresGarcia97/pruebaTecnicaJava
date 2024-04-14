@@ -145,6 +145,31 @@ class TransactionServiceTest {
 		}
 
 		@Test
+		@DisplayName("No se puede realizar la transaccion, si el monto es Zero")
+		void wrongAmountZero() {
+
+			final AccountBankDTO accountDestiny = new AccountBankDTO();
+			transactionDto.setDestiny(accountDestiny);
+			transactionDto.setOrigin(new AccountBankDTO());
+
+			final Transaction transaction = new Transaction();
+			transaction.setTransactionType(TransactionType.CONSIGNACION);
+			transaction.setAmount(BigDecimal.ZERO);
+
+			when(accountBankService.findAccountBank(any(AccountBankDTO.class))).thenReturn(Optional.empty());
+			when(accountBankService.findAccountBank(accountDestiny)).thenReturn(Optional.of(accountDestiny));
+			when(domainMapper.toDomain(any(TransactionDTO.class))).thenReturn(transaction);
+
+			final Exception exception = assertThrows(TransactionException.class, () -> {
+				transactionService.saveAndFlush(transactionDto);
+			});
+
+			assertTrue(exception.getMessage().contains("obligatorio y debe ser mayor a Zero"));
+			verify(accountBankService, times(2)).findAccountBank(any(AccountBankDTO.class));
+			verify(transactionRepository, never()).saveAndFlush(any(TransactionEntity.class));
+		}
+
+		@Test
 		@DisplayName("No se puede realizar la transaccion de CONSIGNACION, sin el destino")
 		void wrongConsignacion() {
 
